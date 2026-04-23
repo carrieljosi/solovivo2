@@ -8,14 +8,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap');
         
-        /* Fonte mais arredondada e confortável */
         body { font-family: 'Nunito', sans-serif; -webkit-tap-highlight-color: transparent; }
         .esconder { display: none !important; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #fdfbf7; }
         ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 10px; }
         
-        /* Fundo acolhedor e menos agressivo aos olhos */
         .bg-main { background-color: #F9F8F6; }
         .bg-login { 
             background: linear-gradient(rgba(41, 37, 36, 0.8), rgba(20, 83, 45, 0.85)), 
@@ -25,11 +23,10 @@
             background-attachment: fixed;
         }
 
-        .img-praga { width: 100%; height: 140px; object-fit: cover; border-radius: 1rem 1rem 0 0; }
-        .img-solo { width: 100%; height: 160px; object-fit: cover; border-radius: 1rem 1rem 0 0; }
+        .img-praga { width: 100%; height: 180px; object-fit: cover; border-radius: 1.5rem 1.5rem 0 0; }
+        .img-solo { width: 100%; height: 200px; object-fit: cover; border-radius: 1.5rem 1.5rem 0 0; }
         
-        /* Modais com sombra suave e fundo escurecido confortável */
-        .modal-bg { background-color: rgba(28, 25, 23, 0.5); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+        .modal-bg { background-color: rgba(28, 25, 23, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
         .card-soft { background: #ffffff; border: 1px solid #f5f5f4; border-radius: 1.5rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03); transition: transform 0.2s; }
         .card-soft:hover { transform: translateY(-3px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); }
         
@@ -46,11 +43,11 @@
                 <h1 class="text-4xl font-black text-emerald-800 tracking-tight">SoloVivo</h1>
                 <p class="text-stone-500 font-bold mt-1 text-sm tracking-wide uppercase">O Campo no seu Controle</p>
                 
-                <div class="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4 shadow-sm text-left">
-                    <span class="inline-flex items-center gap-1.5 text-amber-800 text-[10px] font-black uppercase tracking-widest bg-amber-100/50 px-2 py-1 rounded-lg">
-                        <span class="text-sm">🚧</span> Protótipo em Construção
+                <div class="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4 shadow-sm text-left flex flex-col items-start gap-2">
+                    <span class="inline-flex items-center gap-1.5 text-amber-800 text-[10px] font-black uppercase tracking-widest bg-amber-100/60 px-3 py-1 rounded-lg">
+                        <span class="text-sm">🚧</span> Protótipo
                     </span>
-                    <p class="text-xs text-amber-900/80 font-semibold mt-2 leading-relaxed italic">"A agricultura é a paciência da semente, unida à inovação do amanhã." <br> Versão de validação acadêmica.</p>
+                    <p class="text-sm text-amber-900/90 font-bold mt-1">Sistema em fase de melhorias.</p>
                 </div>
             </div>
             
@@ -119,14 +116,6 @@
                 </div>
             </div>
 
-            <div id="boxAlertaClima" class="esconder bg-orange-50 border-l-4 border-orange-400 p-4 rounded-2xl flex items-start gap-3 shadow-sm">
-                <span class="text-2xl mt-0.5">⚠️</span>
-                <div>
-                    <h3 class="font-black text-orange-900 text-sm">Aviso Agrometeorológico</h3>
-                    <p id="txtAlertaClima" class="text-orange-800 text-xs mt-1 font-medium leading-relaxed"></p>
-                </div>
-            </div>
-
             <section>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                     <button onclick="abrirJanela('modalPlanejamento')" class="card-soft flex flex-col items-center justify-center p-5 gap-3 group active:scale-95 border-t-4 border-blue-400">
@@ -135,7 +124,7 @@
                     </button>
                     <button onclick="abrirJanela('modalPlantio')" class="card-soft flex flex-col items-center justify-center p-5 gap-3 group active:scale-95 border-t-4 border-emerald-400">
                         <div class="bg-emerald-50 text-emerald-600 p-3 rounded-2xl text-2xl group-hover:bg-emerald-100 transition-colors">🌱</div>
-                        <span class="text-xs font-black text-stone-600 uppercase tracking-wide">Nova Lavoura</span>
+                        <span class="text-xs font-black text-stone-600 uppercase tracking-wide">Lavoura</span>
                     </button>
                     <button onclick="abrirJanela('modalDespesas')" class="card-soft flex flex-col items-center justify-center p-5 gap-3 group active:scale-95 border-t-4 border-amber-400">
                         <div class="bg-amber-50 text-amber-600 p-3 rounded-2xl text-2xl group-hover:bg-amber-100 transition-colors">💰</div>
@@ -156,12 +145,20 @@
                 </div>
             </section>
 
-            <section class="pt-4">
+            <div id="boxAlertaClima" class="esconder bg-orange-50 border-l-4 border-orange-400 p-4 rounded-2xl flex items-start gap-3 shadow-sm">
+                <span class="text-2xl mt-0.5">⚠️</span>
+                <div>
+                    <h3 class="font-black text-orange-900 text-sm">Aviso Agrometeorológico</h3>
+                    <p id="txtAlertaClima" class="text-orange-800 text-xs mt-1 font-medium leading-relaxed"></p>
+                </div>
+            </div>
+
+            <section class="pt-2">
                 <h2 class="text-lg font-black text-stone-800 mb-4 flex items-center gap-2">🚜 Monitoramento Ativo</h2>
                 <div id="gridLavouras" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
             </section>
 
-            <section class="pt-4">
+            <section class="pt-2">
                 <h2 class="text-lg font-black text-stone-800 mb-4 flex items-center gap-2">📋 Cronograma Estratégico</h2>
                 <div id="gridPlanejamentos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
             </section>
@@ -177,15 +174,11 @@
             </div>
             <div class="overflow-y-auto p-6 md:p-8 flex-grow">
                 <form onsubmit="salvarPerfil(event)" class="space-y-6">
-                    <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 text-blue-800 text-xs font-bold flex gap-3 items-center">
-                        <span class="text-2xl">📍</span>
-                        <p>O município configurado aqui alimenta o Radar Climático automático.</p>
-                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                         <div class="md:col-span-3"><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Nome da Propriedade</label><input type="text" id="cfgNome" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 focus:border-emerald-500 outline-none text-sm font-bold" required></div>
                         <div class="md:col-span-3"><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Endereço Completo</label><input type="text" id="cfgEndereco" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 focus:border-emerald-500 outline-none text-sm font-bold" required></div>
                         <div><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Estado (UF)</label><select id="cfgEstado" onchange="carregarCidadesIBGE()" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 text-sm font-bold focus:border-emerald-500 outline-none" required><option value="">Carregando...</option></select></div>
-                        <div class="md:col-span-2"><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Município (Via IBGE)</label><select id="cfgCidade" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 text-sm font-bold focus:border-emerald-500 outline-none" disabled required><option value="">Selecione estado</option></select></div>
+                        <div class="md:col-span-2"><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Município (Ativa Clima Automático)</label><select id="cfgCidade" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 text-sm font-bold focus:border-emerald-500 outline-none" disabled required><option value="">Selecione estado</option></select></div>
                         <div class="md:col-span-3"><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Área Cultivável (Ha)</label><input type="number" step="0.1" id="cfgArea" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 text-sm font-bold focus:border-emerald-500 outline-none" required></div>
                     </div>
 
@@ -214,14 +207,6 @@
             </div>
             <div class="overflow-y-auto p-6 md:p-8 flex-grow">
                 
-                <div class="mb-6 bg-stone-50 border border-stone-200 p-4 rounded-2xl flex items-start gap-3">
-                    <span class="text-2xl mt-0.5">📅</span>
-                    <div>
-                        <h4 class="font-black text-stone-800 text-sm">Dica Sazonal</h4>
-                        <p class="text-stone-600 text-xs mt-1 font-medium leading-relaxed">Em Abril/Maio no Sudeste, a prioridade técnica é o plantio de culturas de inverno (<strong>Trigo, Batata, Cebola e Feijão de Inverno</strong>).</p>
-                    </div>
-                </div>
-
                 <form onsubmit="gerarPlanejamento(event)" class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
                     <div>
                         <label class="block text-[10px] font-bold text-stone-400 uppercase ml-1 mb-1">Cultura</label>
@@ -240,8 +225,8 @@
                     <div><label class="block text-[10px] font-bold text-stone-400 uppercase ml-1 mb-1">Data Início</label><input type="date" id="planData" class="w-full p-4 border-2 border-stone-100 rounded-xl text-sm font-bold bg-stone-50 outline-none focus:border-blue-500" required></div>
                     
                     <div id="boxFasesCultura" class="esconder md:col-span-2 bg-blue-50/50 border border-blue-100 p-5 rounded-2xl">
-                        <h4 class="font-black text-sm text-blue-900 mb-2 flex items-center gap-2">ℹ️ Estádios Fenológicos Base (<span id="lblNomeCulturaFases"></span>)</h4>
-                        <ul id="listaFasesCultura" class="text-xs text-blue-800 space-y-1.5 list-disc pl-4 font-medium"></ul>
+                        <h4 class="font-black text-sm text-blue-900 mb-3 flex items-center gap-2">ℹ️ Fases do Ciclo (<span id="lblNomeCulturaFases"></span>)</h4>
+                        <ul id="listaFasesCultura" class="text-sm text-blue-800 space-y-2 list-disc pl-5 font-medium leading-relaxed"></ul>
                     </div>
 
                     <div class="md:col-span-2"><button type="submit" class="w-full bg-blue-600 text-white font-black text-sm uppercase tracking-widest py-4 rounded-xl hover:bg-blue-700 active:scale-[0.98] shadow-md mt-2">Gerar Planejamento Base</button></div>
@@ -259,7 +244,7 @@
                         </div>
                         <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm">
                             <p class="text-[10px] font-black text-stone-400 uppercase tracking-widest mb-3">Protocolo de Base para o Solo</p>
-                            <ul id="planResPreparo" class="list-disc pl-5 text-xs text-stone-600 space-y-2 leading-relaxed"></ul>
+                            <ul id="planResPreparo" class="list-disc pl-5 text-sm text-stone-600 space-y-3 leading-relaxed"></ul>
                         </div>
                     </div>
                     
@@ -317,10 +302,10 @@
                     </div>
                     
                     <div class="p-5 bg-emerald-50 rounded-2xl border border-emerald-100 shadow-sm">
-                        <label class="block text-[10px] font-black text-emerald-800 uppercase tracking-widest mb-1.5 ml-1" id="lblDreVolume">3. Volume/Área Real Colhida (Unid)</label>
+                        <label class="block text-xs font-black text-emerald-800 mb-2 ml-1" id="lblDreVolume">3. Volume/Área Real Colhida (Unid)</label>
                         <input type="number" id="finVolumeReal" class="w-full p-3.5 border-2 border-emerald-200 bg-white rounded-xl font-black text-emerald-900 text-lg outline-none focus:border-emerald-500 mb-4" oninput="calcularBalancoFinanceiro()">
                         
-                        <label class="block text-[10px] font-black text-emerald-800 uppercase tracking-widest mb-1.5 ml-1" id="lblDrePreco">4. Preço Médio de Venda (R$)</label>
+                        <label class="block text-xs font-black text-emerald-800 mb-2 ml-1" id="lblDrePreco">4. Preço Médio de Venda (R$)</label>
                         <input type="number" step="0.01" id="finPreco" class="w-full p-3.5 border-2 border-emerald-200 bg-white rounded-xl font-black text-emerald-900 text-lg outline-none focus:border-emerald-500" oninput="calcularBalancoFinanceiro()">
                     </div>
                 </div>
@@ -333,7 +318,7 @@
                         </div>
                         
                         <div id="printAreaDRE" class="relative z-10">
-                            <div class="flex justify-between mb-3 border-b border-stone-700/50 pb-2"><span class="text-xs font-bold text-stone-400">Total Colhido:</span><span id="dreVolume" class="font-black text-stone-200">0 Kg</span></div>
+                            <div class="flex justify-between mb-3 border-b border-stone-700/50 pb-2"><span class="text-xs font-bold text-stone-400">Total Colhido:</span><span id="dreVolume" class="font-black text-stone-200 text-sm">0</span></div>
                             <div class="flex justify-between mb-3"><span class="text-sm font-black text-emerald-400">Receita Bruta (+):</span><span id="dreReceita" class="font-black text-emerald-400 text-xl">R$ 0,00</span></div>
                             <div class="flex justify-between mb-5 border-b border-stone-700 pb-5"><span class="text-sm font-black text-red-400">Custos Totais (-):</span><span id="dreCustos" class="font-black text-red-400 text-xl">R$ 0,00</span></div>
                             
@@ -354,70 +339,98 @@
         </div>
     </div>
 
-    <div id="modalPragas" class="esconder fixed inset-0 z-50 flex items-center justify-center p-3 md:p-4 modal-bg transition-opacity">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col">
+    <div id="modalPragas" class="esconder fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6 modal-bg transition-opacity">
+        <div class="bg-main rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col">
             <div class="bg-red-50 p-6 flex justify-between items-center border-b border-red-100 rounded-t-3xl">
                 <h3 class="font-black text-xl text-red-900 flex items-center gap-2">🐛 Biblioteca de Pragas</h3>
                 <button onclick="fecharJanela('modalPragas')" class="w-8 h-8 bg-red-100 text-red-700 hover:bg-red-600 hover:text-white rounded-full font-bold flex items-center justify-center transition-colors">✕</button>
             </div>
-            <div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5 overflow-y-auto bg-main">
-                <div class="card-soft overflow-hidden bg-white"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Spodoptera_frugiperda_larva.jpg" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black text-lg text-stone-800 leading-tight">Lagarta-do-cartucho</h4><span class="text-[9px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase">Milho</span></div>
-                        <p class="text-xs text-stone-600 mb-2 leading-relaxed"><strong>Sintoma:</strong> Folhas raspadas e serragem no cartucho.<br><strong>Prevenção:</strong> Plantio de áreas de refúgio.<br><strong>Controle:</strong> Inseticida biológico (B. thuringiensis).</p>
+            <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 overflow-y-auto">
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Spodoptera_frugiperda_larva.jpg" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-black text-xl text-stone-800 leading-tight">Lagarta-do-cartucho</h4>
+                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase">Milho / Algodão</span>
+                        </div>
+                        <p class="text-sm text-stone-600 mb-3 leading-relaxed"><strong>Sintomas:</strong> Folhas raspadas na fase jovem (sintoma de "janela") e presença de serragem no cartucho do milho.</p>
+                        <p class="text-sm text-stone-600 leading-relaxed"><strong>Controle:</strong> Plantio de áreas de refúgio para biotecnologia. Aplicação direcionada de inseticida biológico (<em>B. thuringiensis</em>) ou baculovírus.</p>
                     </div>
                 </div>
-                <div class="card-soft overflow-hidden bg-white"><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Silverleaf_whitefly.jpg" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black text-lg text-stone-800 leading-tight">Mosca-branca</h4><span class="text-[9px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase">Soja / Feijão</span></div>
-                        <p class="text-xs text-stone-600 mb-2 leading-relaxed"><strong>Sintoma:</strong> Folhas prateadas, fumaça preta (fumagina), transmite viroses.<br><strong>Prevenção:</strong> Uso de armadilhas amarelas.<br><strong>Controle:</strong> Óleo de Neem ou B. bassiana.</p>
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Silverleaf_whitefly.jpg" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-black text-xl text-stone-800 leading-tight">Mosca-branca</h4>
+                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase">Soja / Feijão</span>
+                        </div>
+                        <p class="text-sm text-stone-600 mb-3 leading-relaxed"><strong>Sintomas:</strong> Folhas prateadas e secas. Excreção açucarada atrai o fungo fumagina (fumaça preta). Alto risco de transmissão de viroses severas.</p>
+                        <p class="text-sm text-stone-600 leading-relaxed"><strong>Controle:</strong> Rotação com plantas não-hospedeiras. Instalação de armadilhas adesivas amarelas e aplicação de fungos entomopatogênicos (<em>Beauveria bassiana</em>).</p>
                     </div>
                 </div>
-                <div class="card-soft overflow-hidden bg-white"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Brown_marmorated_stink_bug.jpg" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black text-lg text-stone-800 leading-tight">Percevejo Marrom</h4><span class="text-[9px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase">Fase Enchimento</span></div>
-                        <p class="text-xs text-stone-600 mb-2 leading-relaxed"><strong>Sintoma:</strong> Fura as vagens, gerando grãos chochos e amargos.<br><strong>Prevenção:</strong> Monitoramento com pano-de-batida.<br><strong>Controle:</strong> Aplicação defensiva de bordadura.</p>
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Brown_marmorated_stink_bug.jpg" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-black text-xl text-stone-800 leading-tight">Percevejo Marrom</h4>
+                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase">Fase Enchimento</span>
+                        </div>
+                        <p class="text-sm text-stone-600 mb-3 leading-relaxed"><strong>Sintomas:</strong> Ataque direto às vagens em formação. Causa abortamento de grãos, grãos chochos e "soja louca" (retenção foliar).</p>
+                        <p class="text-sm text-stone-600 leading-relaxed"><strong>Controle:</strong> Monitoramento rigoroso semanal com pano-de-batida. Pulverização tática começando pelas bordaduras da lavoura.</p>
                     </div>
                 </div>
-                <div class="card-soft overflow-hidden bg-white"><img src="https://images.pexels.com/photos/15591077/pexels-photo-15591077.jpeg?auto=compress&cs=tinysrgb&w=300" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-2"><h4 class="font-black text-lg text-stone-800 leading-tight">Pulgão</h4><span class="text-[9px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase">Hortaliças / Trigo</span></div>
-                        <p class="text-xs text-stone-600 mb-2 leading-relaxed"><strong>Sintoma:</strong> Enrolamento das folhas novas, atrai formigas.<br><strong>Prevenção:</strong> Preservar predadores naturais (joaninhas).<br><strong>Controle:</strong> Calda de fumo com sabão neutro.</p>
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
+                    <img src="https://images.pexels.com/photos/15591077/pexels-photo-15591077.jpeg?auto=compress&cs=tinysrgb&w=300" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-black text-xl text-stone-800 leading-tight">Pulgão Verde</h4>
+                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase">Hortaliças / Trigo</span>
+                        </div>
+                        <p class="text-sm text-stone-600 mb-3 leading-relaxed"><strong>Sintomas:</strong> Sucção contínua de seiva causando definhamento, enrolamento e amarelecimento de brotos novos. Forte simbiose com formigas.</p>
+                        <p class="text-sm text-stone-600 leading-relaxed"><strong>Controle Orgânico:</strong> Preservar predadores naturais (Joaninhas e Crisopídeos). Uso de emulsão de Óleo de Neem ou caldas à base de sabão e fumo.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="modalSolos" class="esconder fixed inset-0 z-50 flex items-center justify-center p-3 md:p-4 modal-bg transition-opacity">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col">
+    <div id="modalSolos" class="esconder fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6 modal-bg transition-opacity">
+        <div class="bg-main rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col">
             <div class="bg-orange-50 p-6 flex justify-between items-center border-b border-orange-100 rounded-t-3xl">
                 <h3 class="font-black text-xl text-orange-900 flex items-center gap-2">📖 Galeria de Solos</h3>
                 <button onclick="fecharJanela('modalSolos')" class="w-8 h-8 bg-orange-100 text-orange-700 hover:bg-orange-600 hover:text-white rounded-full font-bold flex items-center justify-center transition-colors">✕</button>
             </div>
-            <div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5 overflow-y-auto bg-main">
-                <div class="card-soft overflow-hidden bg-white"><img src="https://images.pexels.com/photos/2804327/pexels-photo-2804327.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-5">
-                        <h4 class="font-black text-xl text-stone-800">Latossolo</h4>
-                        <p class="text-xs text-stone-600 mt-2 leading-relaxed">Terra roxa e profunda com excelente drenagem. Ideal para grandes safras de grãos. <strong>Manejo:</strong> Por ser naturalmente ácido no cerrado, exige calagem pesada (calcário) e gessagem para aprofundar as raízes.</p>
+            <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 overflow-y-auto">
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
+                    <img src="https://images.pexels.com/photos/2804327/pexels-photo-2804327.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
+                    <div class="p-6 flex-grow">
+                        <h4 class="font-black text-2xl text-stone-800 mb-3">Latossolo</h4>
+                        <p class="text-sm text-stone-600 leading-relaxed">Conhecido como Terra Roxa/Vermelha. É um solo maduro, muito profundo, bem drenado e altamente propício à mecanização. Representa a base da agricultura comercial brasileira (Cerrado e Sul).</p>
+                        <p class="text-sm text-stone-600 mt-3 leading-relaxed"><strong>Estratégia de Manejo:</strong> Possui alta acidez natural e altos níveis de Alumínio tóxico. A fundação produtiva exige <strong>calagem profunda (incorporação de calcário)</strong> e aplicação de gesso agrícola para estimular o aprofundamento das raízes.</p>
                     </div>
                 </div>
-                <div class="card-soft overflow-hidden bg-white"><img src="https://images.pexels.com/photos/1122408/pexels-photo-1122408.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-5">
-                        <h4 class="font-black text-xl text-amber-800">Solo Arenoso</h4>
-                        <p class="text-xs text-stone-600 mt-2 leading-relaxed">Mais de 70% de areia. Drena rápido demais e não "segura" o adubo (baixa CTC). <strong>Manejo:</strong> O Plantio Direto (manter palhada no chão) é OBRIGATÓRIO para evitar o ressecamento total. Requer adubação fracionada.</p>
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
+                    <img src="https://images.pexels.com/photos/1122408/pexels-photo-1122408.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
+                    <div class="p-6 flex-grow">
+                        <h4 class="font-black text-2xl text-amber-800 mb-3">Solo Arenoso</h4>
+                        <p class="text-sm text-stone-600 leading-relaxed">Composto por mais de 70% de areia. Apresenta drenagem ultrarrápida, aquecimento excessivo na superfície e baixíssima capacidade de reter nutrientes (baixa CTC).</p>
+                        <p class="text-sm text-stone-600 mt-3 leading-relaxed"><strong>Estratégia de Manejo:</strong> A sustentabilidade depende integralmente do <strong>Sistema de Plantio Direto</strong> para criar uma camada de palhada que isole termicamente e retenha umidade. A adubação deve ser rigorosamente fracionada para evitar lixiviação (lavagem).</p>
                     </div>
                 </div>
-                <div class="card-soft overflow-hidden bg-white"><img src="https://images.pexels.com/photos/60013/desert-drought-dehydrated-clay-soil-60013.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-5">
-                        <h4 class="font-black text-xl text-stone-800">Solo Argiloso</h4>
-                        <p class="text-xs text-stone-600 mt-2 leading-relaxed">Solo pesado (barrento). Excelente em segurar nutrientes e água. <strong>Manejo:</strong> Cuidado extremo com maquinário em dias úmidos, pois compacta fácil (pé de grade). Necessita escarificação a cada 3 safras.</p>
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
+                    <img src="https://images.pexels.com/photos/60013/desert-drought-dehydrated-clay-soil-60013.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
+                    <div class="p-6 flex-grow">
+                        <h4 class="font-black text-2xl text-stone-800 mb-3">Solo Argiloso</h4>
+                        <p class="text-sm text-stone-600 leading-relaxed">Solo pesado e pegajoso (conhecido como barrento). Excelente em segurar nutrientes químicos e umidade devido aos seus microporos, resultando em altíssimo teto produtivo.</p>
+                        <p class="text-sm text-stone-600 mt-3 leading-relaxed"><strong>Estratégia de Manejo:</strong> O grande vilão é a mecanização em dias inadequados. Tratores sobre argila úmida causam <strong>compactação severa (pé-de-grade)</strong>, asfixiando raízes. Demanda operações de escarificação mecânica a cada 3 ou 4 safras.</p>
                     </div>
                 </div>
-                <div class="card-soft overflow-hidden bg-white"><img src="https://images.pexels.com/photos/235731/pexels-photo-235731.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-5">
-                        <h4 class="font-black text-xl text-blue-900">Gleissolo</h4>
-                        <p class="text-xs text-stone-600 mt-2 leading-relaxed">Encontrado em várzeas e baixadas. Rico em matéria orgânica, mas sofre alagamento constante. <strong>Manejo:</strong> Impossível plantar soja/milho sem construir drenos profundos. Perfeito para Arroz Irrigado.</p>
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
+                    <img src="https://images.pexels.com/photos/235731/pexels-photo-235731.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
+                    <div class="p-6 flex-grow">
+                        <h4 class="font-black text-2xl text-blue-900 mb-3">Gleissolo</h4>
+                        <p class="text-sm text-stone-600 leading-relaxed">Solos formados em várzeas e planícies de inundação. São escuros e riquíssimos em matéria orgânica não decomposta devido ao ambiente constantemente saturado por água (falta de oxigênio).</p>
+                        <p class="text-sm text-stone-600 mt-3 leading-relaxed"><strong>Estratégia de Manejo:</strong> É o solo perfeito para a orizicultura (Arroz Irrigado). Para adaptá-lo a outras culturas (como Soja de várzea), é mandatório o alto investimento em <strong>sistemas profundos de drenagem e sistematização do terreno</strong>.</p>
                     </div>
                 </div>
             </div>
@@ -425,36 +438,31 @@
     </div>
 
     <script>
-        /* === BANCO DE DADOS AGRONÔMICO COM FASES DETALHADAS E GRAMA ESPECÍFICA === */
+        /* === BANCO DE DADOS AGRONÔMICO (INFO EXPLÍCITA E GRAMA m2) === */
         const DB_CULTURAS = {
             'Milho': { 
                 ciclo: 120, variacao: '90–150 dias', semQtd: 20, colhQtd: 6000, tipo: 'grao', mesesIdeais: [9,10,11,12,1,2,3], unidade: 'Kg',
-                fases: "<li><strong>0-15 dias:</strong> Germinação e Emergência.</li><li><strong>16-55 dias:</strong> Crescimento Vegetativo (Definição de espigas).</li><li><strong>56-75 dias:</strong> Florescimento e Pendoamento (Alta demanda hídrica).</li><li><strong>76-120 dias:</strong> Enchimento de grão e Secagem.</li>"
+                fases: "<li><strong>0 a 15 dias:</strong> Germinação e Emergência. Fase crítica de ataque de pragas de solo.</li><li><strong>16 a 55 dias:</strong> Desenvolvimento Vegetativo. Época da adubação de cobertura (Ureia).</li><li><strong>56 a 75 dias:</strong> Florescimento (Pendoamento). Máxima demanda por água! Sem água, não há espiga.</li><li><strong>76 a 120 dias:</strong> Enchimento do grão, ganho de peso e perda natural de umidade (Secagem).</li>"
             },
             'Soja': { 
                 ciclo: 120, variacao: '110–140 dias', semQtd: 60, colhQtd: 3200, tipo: 'grao', mesesIdeais: [10,11,12], unidade: 'Kg',
-                fases: "<li><strong>0-10 dias:</strong> Germinação.</li><li><strong>11-45 dias:</strong> Desenvolvimento Vegetativo rápido.</li><li><strong>46-75 dias:</strong> Florescimento e Formação das Vagens.</li><li><strong>76-120 dias:</strong> Enchimento pleno e Maturação.</li>"
+                fases: "<li><strong>0 a 10 dias:</strong> Germinação e emergência do cotilédone.</li><li><strong>11 a 45 dias:</strong> Crescimento foliar rápido e formação de nódulos de nitrogênio na raiz.</li><li><strong>46 a 75 dias:</strong> Florescimento pleno e emissão do canivete (pequenas vagens).</li><li><strong>76 a 120 dias:</strong> Enchimento pesado das vagens e maturação para colheita seca.</li>"
             },
             'Feijão': { 
                 ciclo: 80, variacao: '70–95 dias', semQtd: 50, colhQtd: 1500, tipo: 'grao', mesesIdeais: [4,5,6,7,9,10,11], unidade: 'Kg',
-                fases: "<li><strong>0-8 dias:</strong> Germinação.</li><li><strong>9-35 dias:</strong> Vegetativo.</li><li><strong>36-50 dias:</strong> Florescimento.</li><li><strong>51-80 dias:</strong> Vagens e Colheita Rápida.</li>"
+                fases: "<li><strong>0 a 8 dias:</strong> Rápida germinação.</li><li><strong>9 a 35 dias:</strong> Estágio vegetativo acelerado. Exige controle rigoroso de Mosca Branca.</li><li><strong>36 a 50 dias:</strong> Florescimento crítico. Altamente sensível a estresse hídrico.</li><li><strong>51 a 80 dias:</strong> Enchimento, amarelecimento e colheita antecipada.</li>"
             },
             'Trigo': { 
                 ciclo: 120, variacao: '110–140 dias', semQtd: 140, colhQtd: 2800, tipo: 'grao', mesesIdeais: [3,4,5], unidade: 'Kg',
-                fases: "<li><strong>0-15 dias:</strong> Germinação.</li><li><strong>16-60 dias:</strong> Perfilhamento.</li><li><strong>61-80 dias:</strong> Espigamento.</li><li><strong>81-120 dias:</strong> Maturação e Ponto de Trilha.</li>"
+                fases: "<li><strong>0 a 15 dias:</strong> Germinação.</li><li><strong>16 a 60 dias:</strong> Perfilhamento foliar (Época de nutrição nitrogenada pesada).</li><li><strong>61 a 80 dias:</strong> Alongamento e Espigamento.</li><li><strong>81 a 120 dias:</strong> Maturação, grão leitoso evoluindo para ponto de trilha (duro).</li>"
             },
-            'Arroz': { ciclo: 140, variacao: '130–160 dias', semQtd: 80, colhQtd: 6000, tipo: 'grao', mesesIdeais: [9,10,11,12], unidade: 'Kg', fases: "<li><strong>0-20 dias:</strong> Germinação.</li><li><strong>21-70 dias:</strong> Perfilhamento e Alagamento.</li><li><strong>71-100 dias:</strong> Panícula.</li><li><strong>101-140 dias:</strong> Maturação.</li>" },
-            'Sorgo': { ciclo: 110, variacao: '100–120 dias', semQtd: 10, colhQtd: 4000, tipo: 'grao', mesesIdeais: [2,3], unidade: 'Kg', fases: "<li>Fases similares ao Milho, com alta resistência à seca na fase final.</li>" },
-            'Alface': { ciclo: 60, variacao: '50–70 dias', semQtd: 1, colhQtd: 25000, tipo: 'hortalica', mesesIdeais: [1,2,3,4,5,6,7,8,9,10,11,12], unidade: 'Kg', fases: "<li><strong>0-15 dias:</strong> Sementeira/Muda.</li><li><strong>16-45 dias:</strong> Crescimento foliar diário.</li><li><strong>46-60 dias:</strong> Ponto de Colheita fresca.</li>" },
-            'Tomate': { ciclo: 110, variacao: '100–130 dias', semQtd: 0.5, colhQtd: 60000, tipo: 'hortalica', mesesIdeais: [2,3,4,5,8,9], unidade: 'Kg', fases: "<li><strong>0-25 dias:</strong> Sementeira e Transplante.</li><li><strong>26-60 dias:</strong> Florada.</li><li><strong>61-110 dias:</strong> Frutificação contínua.</li>" },
-            'Cenoura': { ciclo: 90, variacao: '80–110 dias', semQtd: 4, colhQtd: 35000, tipo: 'hortalica', mesesIdeais: [1,2,3,4,5,6,7,8,9,10,11,12], unidade: 'Kg', fases: "<li><strong>0-15 dias:</strong> Germinação Lenta.</li><li><strong>16-60 dias:</strong> Crescimento foliar.</li><li><strong>61-90 dias:</strong> Engrossamento de raiz.</li>" },
-            'Batata': { ciclo: 100, variacao: '90–120 dias', semQtd: 2500, colhQtd: 30000, tipo: 'raiz', mesesIdeais: [4,5,6,7], unidade: 'Kg', fases: "<li><strong>0-20 dias:</strong> Brotação do tubérculo.</li><li><strong>21-60 dias:</strong> Formação de ramas.</li><li><strong>61-100 dias:</strong> Enchimento de tubérculos (Cuidado com umidade excessiva).</li>" },
-            'Cebola': { ciclo: 150, variacao: '120–180 dias', semQtd: 3, colhQtd: 45000, tipo: 'hortalica', mesesIdeais: [3,4,5,6], unidade: 'Kg', fases: "<li>Exige dias longos para bulbificação final. Risco de doenças fúngicas.</li>" },
-            'Repolho': { ciclo: 120, variacao: '100–140 dias', semQtd: 0.5, colhQtd: 40000, tipo: 'hortalica', mesesIdeais: [2,3,4,5,6], unidade: 'Kg', fases: "<li><strong>0-30 dias:</strong> Muda.</li><li><strong>31-80 dias:</strong> Formação de base.</li><li><strong>81-120 dias:</strong> Fechamento da 'cabeça'.</li>" },
-            /* Ajuste Fino da Grama (m2 e Fases corretas) */
+            'Arroz': { ciclo: 140, variacao: '130–160 dias', semQtd: 80, colhQtd: 6000, tipo: 'grao', mesesIdeais: [9,10,11,12], unidade: 'Kg', fases: "<li><strong>0 a 20 dias:</strong> Germinação.</li><li><strong>21 a 70 dias:</strong> Perfilhamento. Manutenção da lâmina de água.</li><li><strong>71 a 100 dias:</strong> Diferenciação da Panícula (Flor).</li><li><strong>101 a 140 dias:</strong> Enchimento, drenagem d'água e colheita.</li>" },
+            'Alface': { ciclo: 60, variacao: '50–70 dias', semQtd: 1, colhQtd: 25000, tipo: 'hortalica', mesesIdeais: [1,2,3,4,5,6,7,8,9,10,11,12], unidade: 'Kg', fases: "<li><strong>0 a 15 dias:</strong> Sementeira/Mudas frágeis.</li><li><strong>16 a 45 dias:</strong> Crescimento foliar explosivo. (Requer adubação nitrogenada frequente).</li><li><strong>46 a 60 dias:</strong> Textura ideal para colheita antes que a folha amargue.</li>" },
+            'Batata': { ciclo: 100, variacao: '90–120 dias', semQtd: 2500, colhQtd: 30000, tipo: 'raiz', mesesIdeais: [4,5,6,7], unidade: 'Kg', fases: "<li><strong>0 a 20 dias:</strong> Brotação da batata-semente.</li><li><strong>21 a 60 dias:</strong> Desenvolvimento foliar aéreo forte.</li><li><strong>61 a 100 dias:</strong> Tuberização (As batatas incham embaixo da terra). Requer umidade controlada para não apodrecer.</li>" },
+            /* Grama tratada corretamente como M2 */
             'Grama': { 
-                ciclo: 90, variacao: '60-90 dias', semQtd: 10000, colhQtd: 10000, tipo: 'perene', mesesIdeais: [9,10,11,12,1,2,3], unidade: 'm²',
-                fases: "<li><strong>0-20 dias:</strong> Pós-plantio dos tapetes (Enraizamento inicial - Exige muita água).</li><li><strong>21-50 dias:</strong> Emissão e expansão de estolões foliares.</li><li><strong>51-70 dias:</strong> Fechamento completo do solo.</li><li><strong>71-90 dias:</strong> Estabelecimento pleno e primeiro corte de manutenção.</li>"
+                ciclo: 90, variacao: '60 a 90 dias', semQtd: 10000, colhQtd: 10000, tipo: 'perene', mesesIdeais: [9,10,11,12,1,2,3], unidade: 'm²',
+                fases: "<li><strong>0 a 25 dias:</strong> Pós-plantio dos Tapetes. (Fase de Enraizamento. Exige rega pesada diária).</li><li><strong>26 a 60 dias:</strong> Expansão lateral dos estolões. As placas 'costuram' e fecham o solo.</li><li><strong>61 a 90 dias:</strong> Fixação plena no terreno. Apresenta cor intensa e permite a primeira poda mecanizada.</li>"
             }
         };
 
@@ -467,7 +475,7 @@
             if(localStorage.getItem('sysUser')) entrarNoSistema(localStorage.getItem('sysUser'));
         };
 
-        // Função Exclusiva para Mostrar as Fases no Planejamento
+        // Função Exclusiva para o Botão Info de Fases
         function mostrarInfoFases(culturaNome) {
             const box = document.getElementById('boxFasesCultura');
             const titulo = document.getElementById('lblNomeCulturaFases');
@@ -479,7 +487,7 @@
             }
 
             titulo.innerText = culturaNome;
-            lista.innerHTML = DB_CULTURAS[culturaNome].fases;
+            lista.innerHTML = DB_CULTURAS[culturaNome].fases || "<li>Dados de fase não cadastrados.</li>";
             box.classList.remove('esconder');
         }
 
@@ -490,8 +498,8 @@
             
             const janela = window.open('', '', 'width=900,height=700');
             janela.document.write(`
-                <html><head><title>${titulo}</title><style>body{font-family:sans-serif;padding:20px;color:#333}h1{color:#064e3b;font-size:24px;border-bottom:2px solid #10b981;padding-bottom:10px} .flex{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:8px 0;} ul{padding-left:20px} li{margin-bottom:8px}</style></head>
-                <body><h1>🌱 SoloVivo - ${titulo}</h1><p><strong>Fazenda:</strong> ${fazenda} | <strong>Gerado em:</strong> ${dataAtual}</p>${conteudo}</body></html>
+                <html><head><title>${titulo}</title><style>body{font-family:sans-serif;padding:30px;color:#333;line-height:1.6}h1{color:#064e3b;font-size:26px;border-bottom:2px solid #10b981;padding-bottom:10px} .flex{display:flex;justify-content:space-between;border-bottom:1px solid #f1f1f1;padding:12px 0;} ul{padding-left:25px} li{margin-bottom:10px}</style></head>
+                <body><h1>🌱 SoloVivo - ${titulo}</h1><p style="margin-bottom: 30px;"><strong>Fazenda:</strong> ${fazenda} | <strong>Relatório Emitido em:</strong> ${dataAtual}</p>${conteudo}</body></html>
             `);
             janela.document.close();
             janela.focus();
@@ -518,6 +526,7 @@
                 }
                 if(lav.volumeReal === undefined) { lav.volumeReal = lav.kgColheita; update = true; }
                 if(lav.unidade === undefined) { lav.unidade = 'Kg'; update = true; }
+                if(lav.cicloBase === undefined) { lav.cicloBase = DB_CULTURAS[lav.cultura]?.ciclo || 120; update = true; }
             });
             if(update) localStorage.setItem('sysLavouras', JSON.stringify(dados));
         }
@@ -631,12 +640,12 @@
             }
 
             if(cid !== "Local ND") {
-                document.getElementById('lblDescClima').innerText = "Lendo radares...";
-                document.getElementById('lblDescClimaMobile').innerText = "Lendo radares...";
+                document.getElementById('lblDescClima').innerText = "Radares...";
+                document.getElementById('lblDescClimaMobile').innerText = "Radares...";
                 let temp = await conectarRadarClimatico(cid);
                 if(temp === null) temp = 27; 
 
-                const desc = temp >= 30 ? `${temp}°C (Quente)` : `${temp}°C (Estável)`;
+                const desc = temp >= 30 ? `${temp}°C (Quente/Seco)` : `${temp}°C (Estável)`;
                 const icone = temp >= 30 ? "☀️" : "⛅";
 
                 document.getElementById('lblIconeClima').innerText = icone;
@@ -646,7 +655,7 @@
 
                 if(temp >= 30) {
                     document.getElementById('boxAlertaClima').classList.remove('esconder');
-                    document.getElementById('txtAlertaClima').innerHTML = `Aviso: Radar aponta <strong>${temp}°C em ${cid}</strong>. Taxa de evapotranspiração crítica. O ERP ajustou a demanda hídrica.`;
+                    document.getElementById('txtAlertaClima').innerHTML = `Atenção: Radar aponta <strong>${temp}°C em ${cid}</strong>. Taxa de evapotranspiração crítica ativada. O sistema sugerirá ajustes hídricos na sua lavoura.`;
                 } else {
                     document.getElementById('boxAlertaClima').classList.add('esconder');
                 }
@@ -673,37 +682,41 @@
             const epocaIdeal = dbRef.mesesIdeais.includes(dtInicio.getMonth() + 1);
 
             let htmlAlerta = epocaIdeal 
-                ? `<div class="bg-emerald-50 border border-emerald-200 text-emerald-800 p-3 rounded-xl mt-4 text-[11px] font-bold">✅ APROVADO: Plantio dentro da janela ideal.</div>`
-                : `<div class="bg-red-50 border border-red-200 text-red-800 p-3 rounded-xl mt-4 text-[11px] font-bold">⚠️ RISCO CLIMÁTICO: Mês não indicado no Sudeste.</div>`;
+                ? `<div class="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl mt-5 text-sm font-bold shadow-sm">✅ APROVADO: O Mês selecionado confere perfeitamente com a janela climática ideal para esta cultura na região Sudeste.</div>`
+                : `<div class="bg-red-50 border border-red-200 text-red-800 p-4 rounded-xl mt-5 text-sm font-bold shadow-sm">⚠️ RISCO CLIMÁTICO ALTO: Este mês histórico não é indicado agronomicamente para o plantio desta semente na região Sudeste. Sujeito à perdas.</div>`;
 
-            let proto = `<li><strong>1. Análise Físico/Química:</strong> Laudo laboratorial 60 dias antes do preparo.</li>`;
-            if(crtSol === "Latossolo") proto += "<li><strong>2. Correção (Calagem):</strong> Aplicar calcário dolomítico 90 dias antes.</li>";
-            if(crtSol === "Argiloso") proto += "<li><strong>2. Manejo Físico:</strong> Avaliar compactação do solo. Programe escarificação se pisoteado.</li>";
-            if(crtSol === "Arenoso") proto += "<li><strong>2. Manejo Biológico:</strong> OBRIGATÓRIO Plantio Direto para manter umidade térmica.</li>";
-            proto += `<li><strong>3. Dessecação:</strong> Aplicação de herbicida 15 dias antes de ${crtDat.split('-').reverse().join('/')}.</li>`;
+            let proto = `<li class="mb-2"><strong>1. Análise Físico/Química:</strong> Retirar amostras do solo (0-20cm de profundidade) para laudo laboratorial com 60 dias de antecedência.</li>`;
+            if(crtSol === "Latossolo") proto += `<li class="mb-2"><strong>2. Correção de Base:</strong> Latossolos requerem calcário dolomítico 90 dias antes para neutralizar acidez e disponibilizar magnésio.</li>`;
+            if(crtSol === "Argiloso") proto += `<li class="mb-2"><strong>2. Manejo Físico:</strong> Solos pesados compactam facilmente. Verifique a necessidade urgente de uma operação de escarificação.</li>`;
+            if(crtSol === "Arenoso") proto += `<li class="mb-2"><strong>2. Manejo Biológico:</strong> Solos de areia evaporam água rápido. É absolutamente OBRIGATÓRIO adotar o Plantio Direto (manter palhada).</li>`;
+            if(crtSol === "Gleissolo") proto += `<li class="mb-2"><strong>2. Gestão Hídrica:</strong> Áreas de várzea demandam a construção prévia de dutos de drenagem eficientes.</li>`;
             
-            // Fases Integradas no Relatório PDF
-            proto += `<li class="mt-2 text-blue-700"><strong>Fases Estimadas:</strong><ul class="list-circle pl-5 mt-1 text-stone-600">${dbRef.fases}</ul></li>`;
+            proto += `<li class="mb-2"><strong>3. Dessecação do Terreno:</strong> Aplicação de herbicida sistêmico cerca de 15 dias antes da data estipulada: ${crtDat.split('-').reverse().join('/')}.</li>`;
+            proto += `<li class="mb-4"><strong>4. Adubação de Arranque:</strong> Configurar a máquina semeadeira para depositar fonte de Fósforo direto no sulco, um pouco abaixo da semente.</li>`;
+            
+            // Fases Dinâmicas da Cultura Escritas no PDF
+            proto += `<li class="mt-4 pt-4 border-t border-stone-200 text-blue-800"><strong>Estádios Estimados do Ciclo:</strong><ul class="list-disc pl-6 mt-3 space-y-2 text-stone-600 font-normal">${dbRef.fases}</ul></li>`;
 
             document.getElementById('planResSemente').innerHTML = `
-                <div class="flex justify-between items-center mb-3 pb-3 border-b border-stone-100">
-                    <span class="text-[10px] font-black text-stone-400 uppercase tracking-widest">Demanda Necessária:</span> 
-                    <span class="text-xl font-black text-stone-700">${necGeral.toLocaleString('pt-BR')} ${unid}</span>
+                <div class="flex justify-between items-center mb-4 pb-4 border-b border-stone-100">
+                    <span class="text-sm font-black text-stone-500 uppercase tracking-widest">Insumos (Demanda Exata):</span> 
+                    <span class="text-2xl font-black text-stone-800">${necGeral.toLocaleString('pt-BR')} <span class="text-lg text-stone-500">${unid}</span></span>
                 </div>
                 <div class="flex justify-between items-center">
                     <div class="flex flex-col">
-                        <span class="text-[10px] font-black text-stone-400 uppercase tracking-widest">Colheita Final</span>
-                        <span class="text-[9px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-md mt-1 w-max">MÉDIA: ${dbRef.ciclo} DIAS</span>
+                        <span class="text-sm font-black text-stone-500 uppercase tracking-widest">Colheita Final Prevista</span>
+                        <span class="text-[10px] font-black bg-blue-100 text-blue-800 px-3 py-1 rounded-full mt-2 w-max border border-blue-200">MÉDIA MATEMÁTICA: ${dbRef.ciclo} DIAS</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-blue-600 block text-2xl font-black">${dtColheita.toLocaleDateString('pt-BR')}</span>
-                        <span class="text-[9px] text-stone-400 font-bold uppercase tracking-widest">*Var: ${dbRef.variacao}</span>
+                        <span class="text-blue-700 block text-3xl font-black leading-none">${dtColheita.toLocaleDateString('pt-BR')}</span>
+                        <span class="text-[10px] text-stone-500 font-bold uppercase tracking-widest block mt-1.5">*Var Climática: ${dbRef.variacao}</span>
                     </div>
                 </div>
                 ${htmlAlerta}
             `;
             document.getElementById('planResPreparo').innerHTML = proto;
             document.getElementById('resultadoPlanejamento').classList.remove('esconder');
+            
             planoEmMemoria = { id: Date.now(), cultura: crtCul, solo: crtSol, area: crtArea, dataStr: crtDat, sementesVol: necGeral, unidade: unid, colheitaEstimada: dtColheita.toLocaleDateString('pt-BR'), variacao: dbRef.variacao };
         }
 
@@ -722,22 +735,24 @@
             let db = JSON.parse(localStorage.getItem('sysPlanos')) || [];
             malha.innerHTML = '';
             
-            if(db.length === 0) { malha.innerHTML = "<p class='col-span-full text-xs text-stone-400 font-bold p-4 bg-white rounded-xl border border-stone-100 shadow-sm'>Nenhum planejamento salvo.</p>"; return; }
+            if(db.length === 0) { malha.innerHTML = "<p class='col-span-full text-sm text-stone-400 font-bold p-5 bg-white rounded-2xl border border-stone-100 shadow-sm'>Nenhum cronograma salvo na agenda.</p>"; return; }
             
             db.forEach(p => {
                 malha.innerHTML += `
-                    <div class="card-soft p-5 relative group bg-white">
-                        <button onclick="apagarPlano(${p.id})" class="absolute top-4 right-4 w-6 h-6 bg-stone-100 text-stone-400 hover:bg-red-500 hover:text-white rounded-full flex items-center justify-center text-xs font-bold transition-colors">✕</button>
-                        <h4 class="font-black text-blue-900 text-lg">${p.cultura}</h4>
-                        <p class="text-[9px] font-black bg-stone-100 px-2.5 py-1 rounded text-stone-500 mb-4 inline-block tracking-widest uppercase">${p.area} Hectares</p>
-                        <div class="space-y-2 border-t border-stone-100 pt-3">
-                            <div class="flex justify-between"><span class="text-[9px] font-bold text-stone-400 uppercase tracking-widest">Início:</span> <span class="text-xs font-black text-stone-700">${p.dataStr.split('-').reverse().join('/')}</span></div>
-                            <div class="flex justify-between"><span class="text-[9px] font-bold text-stone-400 uppercase tracking-widest">Demanda:</span> <span class="text-xs font-black text-emerald-600">${p.sementesVol.toLocaleString('pt-BR')} ${p.unidade || 'Kg'}</span></div>
-                            <div class="flex justify-between items-center border-t border-stone-50 pt-2 mt-2">
-                                <span class="text-[9px] font-bold text-stone-400 uppercase tracking-widest">Colheita (Média):</span> 
+                    <div class="card-soft p-6 relative group bg-white flex flex-col justify-between">
+                        <button onclick="apagarPlano(${p.id})" class="absolute top-4 right-4 w-7 h-7 bg-stone-100 text-stone-400 hover:bg-red-500 hover:text-white rounded-full flex items-center justify-center text-xs font-bold transition-colors">✕</button>
+                        <div>
+                            <h4 class="font-black text-blue-900 text-xl">${p.cultura}</h4>
+                            <p class="text-[10px] font-black bg-stone-100 px-3 py-1 rounded text-stone-500 my-3 inline-block tracking-widest uppercase">${p.area} Hectares</p>
+                        </div>
+                        <div class="space-y-3 border-t border-stone-100 pt-4 mt-2">
+                            <div class="flex justify-between items-center"><span class="text-xs font-bold text-stone-400 uppercase tracking-widest">Início:</span> <span class="text-sm font-black text-stone-700">${p.dataStr.split('-').reverse().join('/')}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-xs font-bold text-stone-400 uppercase tracking-widest">Demanda:</span> <span class="text-sm font-black text-emerald-600">${p.sementesVol.toLocaleString('pt-BR')} ${p.unidade || 'Kg'}</span></div>
+                            <div class="flex justify-between items-end border-t border-stone-50 pt-3 mt-3">
+                                <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Colheita (Média):</span> 
                                 <div class="text-right">
-                                    <span class="text-sm font-black text-blue-600">${p.colheitaEstimada}</span>
-                                    <p class="text-[8px] text-stone-400 uppercase font-bold tracking-wider">${p.variacao || ''}</p>
+                                    <span class="text-lg font-black text-blue-700 leading-none block mb-0.5">${p.colheitaEstimada}</span>
+                                    <p class="text-[9px] text-stone-400 uppercase font-bold tracking-wider">${p.variacao || ''}</p>
                                 </div>
                             </div>
                         </div>
@@ -765,7 +780,7 @@
                 id: Date.now(), cultura: c, solo: document.getElementById('plSolo').value,
                 dataStr: dp, area: a, dataColheitaStr: tmpFim.toISOString().split('T')[0],
                 kgColheita: a * dbR.colhQtd, volumeReal: a * dbR.colhQtd, 
-                variacaoTxt: dbR.variacao, unidade: dbR.unidade || 'Kg',
+                cicloBase: dbR.ciclo, variacaoTxt: dbR.variacao, unidade: dbR.unidade || 'Kg',
                 despSemente: 0, despFert: 0, despDef: 0, despMO: 0, despMaq: 0, despAgua: 0, precoVenda: 0
             };
             
@@ -781,48 +796,52 @@
             const grid = document.getElementById('gridLavouras');
             let db = JSON.parse(localStorage.getItem('sysLavouras')) || [];
             
-            if(db.length === 0) { grid.innerHTML = '<div class="col-span-full border border-stone-200 bg-white border-dashed rounded-[2rem] p-10 text-center"><p class="text-stone-400 font-black text-lg">Nenhuma Lavoura Ativa</p></div>'; return; }
+            if(db.length === 0) { grid.innerHTML = '<div class="col-span-full border border-stone-200 bg-white border-dashed rounded-[2rem] p-12 text-center shadow-sm"><p class="text-stone-400 font-black text-xl mb-2">Monitoramento Zerado</p><p class="text-stone-400 text-sm">Abra uma [Nova Lavoura] para acompanhar o ciclo e clima diário.</p></div>'; return; }
 
             grid.innerHTML = '';
             db.forEach(l => {
                 const ia = oCerebroAgronomico(l); 
                 const dc = l.dataColheitaStr.split('-').reverse().join('/');
+                const cB = l.cicloBase || (DB_CULTURAS[l.cultura] ? DB_CULTURAS[l.cultura].ciclo : '--');
 
                 grid.innerHTML += `
                     <div class="card-soft overflow-hidden flex flex-col bg-white">
-                        <div class="bg-emerald-50/70 border-b border-emerald-100 p-5 flex justify-between items-start">
+                        <div class="bg-emerald-50 border-b border-emerald-100 p-6 flex justify-between items-start">
                             <div>
-                                <h3 class="font-black text-xl text-emerald-900">${l.cultura}</h3>
-                                <p class="text-[9px] font-black text-emerald-600 uppercase tracking-widest bg-white border border-emerald-100 px-2 py-0.5 rounded-lg mt-1.5 inline-block">Talhão: ${l.area} Ha</p>
+                                <h3 class="font-black text-2xl text-emerald-900 mb-1">${l.cultura}</h3>
+                                <p class="text-[10px] font-black text-emerald-700 uppercase tracking-widest bg-white border border-emerald-200 px-3 py-1 rounded-full inline-block shadow-sm">Talhão: ${l.area} Ha</p>
                             </div>
-                            <button onclick="deletarLavouraAtiva(${l.id})" class="text-stone-300 hover:bg-red-500 hover:text-white w-8 h-8 rounded-full text-sm font-black transition-colors">✕</button>
+                            <button onclick="deletarLavouraAtiva(${l.id})" class="text-stone-400 hover:bg-red-500 hover:text-white w-9 h-9 rounded-full text-base font-black transition-colors flex items-center justify-center">✕</button>
                         </div>
-                        <div class="p-5 flex-grow flex flex-col gap-4">
-                            <div class="flex justify-between items-center">
+                        
+                        <div class="p-6 flex-grow flex flex-col gap-5">
+                            <div class="flex justify-between items-center pb-2 border-b border-stone-100">
                                 <div>
-                                    <p class="text-[9px] text-stone-400 font-black uppercase tracking-widest">Estádio Fisiológico</p>
-                                    <p class="font-black text-stone-700 text-sm mt-0.5">${ia.fasePlanta}</p>
-                                    <p class="text-[10px] font-bold text-stone-400 mt-0.5">Dia ${ia.diaDoCiclo} do ciclo.</p>
+                                    <p class="text-[10px] text-stone-400 font-black uppercase tracking-widest">Estádio Fisiológico</p>
+                                    <p class="font-black text-stone-800 text-base mt-1 leading-tight">${ia.fasePlanta}</p>
+                                    <p class="text-[11px] font-bold text-stone-500 mt-1 bg-stone-100 px-2 py-0.5 rounded w-max">Dia ${ia.diaDoCiclo} de ${cB} (Média total)</p>
                                 </div>
-                                <div class="text-right border-l border-stone-100 pl-4">
-                                    <p class="text-[9px] text-blue-500 font-black uppercase tracking-widest">Colheita (MÉDIA)</p>
-                                    <p class="font-black text-blue-600 text-lg mt-0.5">${dc}</p>
-                                    <p class="text-[8px] text-stone-400 font-black uppercase mt-0.5">Var: ${l.variacaoTxt}</p>
+                                <div class="text-right pl-4">
+                                    <p class="text-[10px] text-blue-500 font-black uppercase tracking-widest">Colheita (Média)</p>
+                                    <p class="font-black text-blue-600 text-2xl mt-1 leading-none">${dc}</p>
+                                    <p class="text-[9px] text-stone-400 font-bold uppercase mt-1.5 tracking-wider">Var: ${l.variacaoTxt || 'N/D'}</p>
                                 </div>
                             </div>
-                            <div class="bg-blue-50/40 rounded-xl p-4 border border-blue-100/50">
-                                <div class="text-xs text-stone-600 space-y-3">
-                                    <p class="leading-snug text-[11px]"><strong class="text-blue-700 bg-blue-100 px-1 rounded">💧 Água:</strong> ${ia.txtAgua}</p>
-                                    <p class="leading-snug text-[11px]"><strong class="text-emerald-700 bg-emerald-100 px-1 rounded">🧪 Adubo:</strong> ${ia.txtAdubo}</p>
+                            
+                            <div class="bg-emerald-50/50 rounded-2xl p-5 border border-emerald-100 shadow-sm">
+                                <div class="text-xs text-stone-700 space-y-4">
+                                    <p class="leading-relaxed"><strong class="text-blue-800 bg-blue-100 px-1.5 py-0.5 rounded mr-1">💧 Rega:</strong> ${ia.txtAgua}</p>
+                                    <p class="leading-relaxed"><strong class="text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded mr-1">🧪 Adubo:</strong> ${ia.txtAdubo}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="border-t border-stone-100 p-4 flex justify-between items-center bg-stone-50/50">
+
+                        <div class="border-t border-stone-100 p-5 flex justify-between items-center bg-stone-50">
                             <div>
-                                <p class="text-[9px] text-stone-400 font-bold uppercase tracking-widest">Estimativa Base</p>
-                                <p class="text-lg font-black text-emerald-700 leading-none mt-1">${parseFloat(l.kgColheita).toLocaleString('pt-BR')} <span class="text-xs text-stone-500">${l.unidade}</span></p>
+                                <p class="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Colheita Base</p>
+                                <p class="text-xl font-black text-emerald-700 leading-none mt-1">${parseFloat(l.kgColheita).toLocaleString('pt-BR')} <span class="text-sm text-stone-500">${l.unidade}</span></p>
                             </div>
-                            <button onclick="abrirModuloFinanceiroDRE(${l.id})" class="bg-white border border-stone-200 text-stone-600 text-[10px] uppercase tracking-widest font-black px-4 py-2.5 rounded-lg shadow-sm hover:border-emerald-300 hover:text-emerald-700 active:scale-95 transition-all">Lançar DRE 💰</button>
+                            <button onclick="abrirModuloFinanceiroDRE(${l.id})" class="bg-white border border-stone-200 text-stone-700 text-[11px] uppercase tracking-widest font-black px-5 py-3 rounded-xl shadow-sm hover:border-emerald-300 hover:text-emerald-700 active:scale-95 transition-all">Lançar DRE 💰</button>
                         </div>
                     </div>
                 `;
@@ -835,62 +854,62 @@
             carregarGridLavouras(); carregarSelectFinanceiroDRE();
         }
 
-        /* === CÉREBRO AGRONÔMICO (COM GRAMA ESPECÍFICA) === */
         function oCerebroAgronomico(dadosLavoura) {
             const dataCriacao = new Date(dadosLavoura.dataStr + 'T00:00:00');
             const dataHoje = new Date();
             let idadeEmDias = Math.max(0, Math.floor((dataHoje - dataCriacao) / (1000 * 3600 * 24)));
             
-            const infoCultura = DB_CULTURAS[dadosLavoura.cultura];
+            const infoCultura = DB_CULTURAS[dadosLavoura.cultura] || { ciclo: 120, tipo: 'grao' };
             const cicloOficial = infoCultura.ciclo;
             const tipoCultura = infoCultura.tipo; 
             
-            let etapa = "Crescimento Vegetativo";
+            let etapa = "Desenvolvimento";
             
             if (dadosLavoura.cultura.includes('Grama')) {
-                if (idadeEmDias <= 25) etapa = "Pegamento dos Tapetes (Enraizamento)";
-                else if (idadeEmDias < 70) etapa = "Expansão e Fechamento do Solo";
-                else etapa = "Estabelecimento Completo (Pronta pro Corte)";
+                if (idadeEmDias <= 25) etapa = "Enraizamento dos Tapetes (Muda)";
+                else if (idadeEmDias < 70) etapa = "Expansão Foliar e Fechamento do Solo";
+                else etapa = "Estabelecimento Pleno (Pronta para o Corte)";
             } else {
-                if(idadeEmDias < (cicloOficial * 0.15)) etapa = "Fase Inicial (Germinação/Muda)";
-                else if(idadeEmDias > (cicloOficial * 0.85)) etapa = "Maturação / Senescência";
-                else if(idadeEmDias > (cicloOficial * 0.40)) etapa = "Fase Reprodutiva / Enchimento";
+                if(idadeEmDias < (cicloOficial * 0.15)) etapa = "Fase Inicial (Germinação e Emergência)";
+                else if(idadeEmDias > (cicloOficial * 0.85)) etapa = "Secagem e Maturação Final";
+                else if(idadeEmDias > (cicloOficial * 0.40)) etapa = "Fase Reprodutiva Crítica (Flores/Vagens)";
+                else etapa = "Crescimento Vegetativo Forte";
             }
 
             let milimetros = 0; let avisoRega = ""; let avisoAdubo = "";
             let tempAgro = window.temperaturaRadarGlobal || 25; 
 
             if(etapa.includes("Maturação") && tipoCultura !== 'perene') {
-                avisoRega = "<strong class='text-red-500'>CORTE DE ÁGUA.</strong> Cultura atingiu maturidade. Evite fungos e apodrecimento.";
+                avisoRega = "<span class='text-red-600 font-black'>CORTE DE ÁGUA ACONSELHADO.</span> Cultura atingiu a maturação. Muita umidade nesta fase pode apodrecer o grão ou proliferar fungos de final de ciclo.";
             } else {
-                if(etapa.includes("Inicial") || etapa.includes("Pegamento")) milimetros = 3;
+                if(etapa.includes("Inicial") || etapa.includes("Enraizamento")) milimetros = 3;
                 else if(etapa.includes("Crescimento") || etapa.includes("Expansão")) milimetros = 5;
                 else if(etapa.includes("Reprodutiva")) milimetros = 8; 
-                else milimetros = 4; // Default Perenes prontas
+                else milimetros = 4; 
 
                 if(tempAgro >= 30) {
                     milimetros += 3; 
                     if(dadosLavoura.solo.includes("Arenoso")) {
-                        avisoRega = `Atenção: Solo arenoso + Calor. Fornecer ${milimetros}mm em <strong>turnos curtos</strong> (Madrugada e Noite).`;
+                        avisoRega = `Temperatura Extrema (${tempAgro}°C). <strong>Solo Arenoso:</strong> Fornecer ${milimetros}mm diários divididos em <strong>turnos curtos</strong> (Madrugada e Noite) para evitar fervura da raiz.`;
                     } else {
-                        avisoRega = `Calor extremo (${tempAgro}°C). Lâmina de ${milimetros}mm. Mantenha úmido para evitar rachaduras.`;
+                        avisoRega = `Calor de ${tempAgro}°C ativou taxa extra. Lâmina ideal de ${milimetros}mm. Solo argiloso deve ser mantido sempre úmido para não rachar e arrebentar raízes secundárias.`;
                     }
                 } else {
-                    avisoRega = `Clima favorável. Lâmina base de ${milimetros} mm/dia.`;
+                    avisoRega = `Temperatura amena (${tempAgro}°C). Lâmina hídrica basal de ${milimetros} mm/dia mantém a turgidez vegetal perfeitamente.`;
                 }
             }
 
             if(etapa.includes("Maturação") && tipoCultura !== 'perene') {
-                avisoAdubo = "Sistema vascular fechado. Focar na logística de colheita.";
+                avisoAdubo = "Sistema vascular vegetal já está fechado. Focar na limpeza e preparação das colheitadeiras e nos silos de secagem.";
             } else if (dadosLavoura.cultura.includes('Grama')) {
-                if (idadeEmDias <= 25) avisoAdubo = "Garantir Fósforo (P) embaixo do tapete para pegamento rápido.";
-                else avisoAdubo = "Aplicar <strong>Ureia (Nitrogênio) mensalmente</strong> a lanço antes de regar para cor verde intensa.";
+                if (idadeEmDias <= 25) avisoAdubo = "Foco em aplicar Fósforo (P) na base do tapete. Isso vai garantir que as raízes agarrem rápido o terreno.";
+                else avisoAdubo = "Grama firme! Para que ela atinja aquele 'verde de campo de futebol', jogue <strong>Ureia a lanço 1 vez por mês</strong> sempre antes da rega (se não, queima as folhas).";
             } else {
-                if(tipoCultura === 'hortalica') { avisoAdubo = "<strong>Fertirrigação semanal ou quinzenal</strong> focada em Cálcio e Nitrogênio."; } 
+                if(tipoCultura === 'hortalica') { avisoAdubo = "Hortaliças consomem muito e rápido. Recomenda-se <strong>Fertirrigação semanal</strong> balanceando Nitrogênio para as folhas e Cálcio para estrutura firme."; } 
                 else {
-                    if(etapa.includes("Inicial")) { avisoAdubo = "Apenas Fósforo no plantio. Sem ação foliar hoje."; } 
-                    else if (etapa.includes("Crescimento")) { avisoAdubo = "Aplicar <strong>1ª Cobertura de Ureia (N)</strong> antes do fechamento das entrelinhas."; } 
-                    else if (etapa.includes("Reprodutiva")) { avisoAdubo = "Focar em <strong>Potássio (KCl) foliar ou solo</strong> para engordar grão/fruto."; }
+                    if(etapa.includes("Inicial")) { avisoAdubo = "A planta ainda usa a reserva da própria semente. Fósforo basal é suficiente. Nenhuma ação extra necessária hoje."; } 
+                    else if (etapa.includes("Crescimento")) { avisoAdubo = "Ponto ótimo para jogar a <strong>1ª Cobertura Pesada de Ureia (N)</strong> antes do total fechamento das linhas da lavoura."; } 
+                    else if (etapa.includes("Reprodutiva")) { avisoAdubo = "Fase nobre do lucro! Exige <strong>Potássio (KCl) foliar ou solo</strong> alto para garantir o peso pesado dos grãos ou frutos."; }
                 }
             }
 
@@ -901,7 +920,7 @@
         function carregarSelectFinanceiroDRE() {
             const sl = document.getElementById('finSelectLavoura');
             let db = JSON.parse(localStorage.getItem('sysLavouras')) || [];
-            sl.innerHTML = '<option value="">Escolha o Talhão/Lavoura...</option>';
+            sl.innerHTML = '<option value="">Escolha o Talhão da Lavoura...</option>';
             db.forEach(l => sl.innerHTML += `<option value="${l.id}">${l.cultura} (${l.area} Ha)</option>`);
         }
 
@@ -925,9 +944,9 @@
             document.getElementById('finPreco').value = l.precoVenda || '';
             document.getElementById('finVolumeReal').value = l.volumeReal || l.kgColheita;
             
-            // Labels Explicitas para Unidade de Medida
-            document.getElementById('lblDreVolume').innerText = `3. Qtde Real Colhida (${l.unidade})`;
-            document.getElementById('lblDrePreco').innerText = `4. Preço Médio (R$ por ${l.unidade})`;
+            // Labels Extremamente Explicitas para a Unidade de Medida Exata (Kg ou m2)
+            document.getElementById('lblDreVolume').innerHTML = `3. Volume ou Área Real Colhida <span class="bg-emerald-200 text-emerald-900 px-2 py-1 rounded ml-1 text-[11px] font-black">(${l.unidade})</span>`;
+            document.getElementById('lblDrePreco').innerHTML = `4. Preço Médio de Venda <span class="bg-emerald-200 text-emerald-900 px-2 py-1 rounded ml-1 text-[11px] font-black">(R$ por ${l.unidade})</span>`;
             
             calcularBalancoFinanceiro();
         }
@@ -958,7 +977,7 @@
 
         function arquivarFechamentoDRE() {
             const id = parseInt(document.getElementById('finSelectLavoura').value);
-            if(!id) return alert("Selecione a lavoura.");
+            if(!id) return alert("Por favor, selecione uma lavoura antes de arquivar.");
             
             let db = JSON.parse(localStorage.getItem('sysLavouras'));
             let i = db.findIndex(b => b.id === id);
@@ -987,18 +1006,18 @@
             let h = JSON.parse(localStorage.getItem('sysHistoricoDRE')) || [];
             cx.innerHTML = '';
             
-            if(h.length === 0) { cx.innerHTML = "<p class='text-[11px] text-stone-400 font-bold p-4 bg-stone-50 rounded-xl border border-stone-100'>Nenhum DRE salvo. Faça o primeiro fechamento acima.</p>"; return; }
+            if(h.length === 0) { cx.innerHTML = "<p class='text-xs text-stone-400 font-bold p-4 bg-stone-50 rounded-xl border border-stone-100'>Seu histórico de safras e fechamentos aparecerá aqui.</p>"; return; }
 
             h.forEach(d => {
-                const cCor = d.lucro < 0 ? 'text-red-500' : 'text-emerald-500';
+                const cCor = d.lucro < 0 ? 'text-red-500' : 'text-emerald-600';
                 cx.innerHTML += `
                     <div class="bg-white border border-stone-100 p-4 rounded-xl flex justify-between items-center transition-colors shadow-sm hover:border-emerald-100">
                         <div>
-                            <p class="font-black text-sm text-stone-700">${d.cultura} <span class="text-[9px] text-stone-400 uppercase tracking-widest ml-1">${d.area} Ha</span></p>
-                            <p class="text-[9px] uppercase font-black text-stone-400 mt-0.5">${d.data}</p>
+                            <p class="font-black text-base text-stone-700">${d.cultura} <span class="text-[10px] text-stone-400 uppercase tracking-widest ml-2">${d.area} Ha</span></p>
+                            <p class="text-[10px] uppercase font-bold text-stone-400 mt-1">${d.data}</p>
                         </div>
                         <div class="text-right">
-                            <p class="font-black ${cCor} text-base leading-none">${d.lucro.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}</p>
+                            <p class="font-black ${cCor} text-lg leading-none">${d.lucro.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}</p>
                         </div>
                     </div>
                 `;
