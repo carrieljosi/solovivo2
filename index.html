@@ -562,17 +562,30 @@
     </div>
 
     <div id="modalCiclo" class="esconder fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
             <div class="p-6 border-b border-stone-100 flex justify-between items-center bg-stone-50">
                 <h3 class="font-black text-xl text-stone-800 flex items-center gap-2">📈 Ciclo da Cultura</h3>
                 <button onclick="fecharJanela('modalCiclo')" class="w-10 h-10 bg-stone-200 text-stone-600 hover:bg-red-500 hover:text-white rounded-full flex items-center justify-center font-bold transition-colors text-xl">✕</button>
             </div>
-            <div class="overflow-y-auto p-6 space-y-5">
+            <div class="overflow-y-auto p-6 space-y-6">
                 <div id="cicloTitulo" class="text-stone-700 font-black text-lg"></div>
                 <div id="cicloStatus" class="bg-stone-50 border border-stone-200 rounded-2xl p-5 text-sm text-stone-700"></div>
+                <div id="cicloProgresso" class="bg-white border border-stone-200 rounded-3xl p-5">
+                    <h4 class="font-black text-stone-800 mb-4">Progresso do Ciclo</h4>
+                    <div class="w-full bg-stone-200 rounded-full h-4 mb-2">
+                        <div id="barraProgresso" class="bg-emerald-500 h-4 rounded-full transition-all duration-500"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-stone-500">
+                        <span id="progressoInicio">Dia 0</span>
+                        <span id="progressoFim">Dia 120</span>
+                    </div>
+                </div>
                 <div class="bg-white border border-stone-200 rounded-3xl p-5">
                     <h4 class="font-black text-stone-800 mb-3">Fases do Ciclo</h4>
                     <div id="cicloEtapas" class="text-sm text-stone-600 leading-relaxed"></div>
+                </div>
+                <div id="cicloAviso" class="bg-orange-50 border border-orange-200 rounded-2xl p-4 text-sm text-orange-800 font-bold esconder">
+                    ⚠️ Atenção: Esta cultura está em fase crítica! Monitore rega e pragas intensamente.
                 </div>
             </div>
         </div>
@@ -756,13 +769,32 @@
             const hoje = new Date();
             const diaAtual = Math.max(0, Math.floor((hoje - dataInicio) / (1000 * 3600 * 24)));
             const ciclo = info.ciclo || '--';
+            const dataColheita = new Date(dataInicio);
+            dataColheita.setDate(dataColheita.getDate() + ciclo);
+            const diasRestantes = Math.max(0, Math.floor((dataColheita - hoje) / (1000 * 3600 * 24)));
+            const progressoPercent = Math.min(100, (diaAtual / ciclo) * 100);
 
             document.getElementById('cicloTitulo').innerText = `${lav.cultura} • ${lav.area} Ha`;
             document.getElementById('cicloStatus').innerHTML = `
-                <p class="font-black text-sm text-stone-700 mb-3">Progresso atual: Dia ${diaAtual} de ${ciclo}</p>
-                <p class="text-sm text-stone-600">Estágio atual estimado: <strong>${oCerebroAgronomico(lav).fasePlanta}</strong></p>
+                <p class="font-black text-sm text-stone-700 mb-3">Progresso atual: Dia ${diaAtual} de ${ciclo} (${progressoPercent.toFixed(1)}% completo)</p>
+                <p class="text-sm text-stone-600 mb-2">Estágio atual estimado: <strong>${oCerebroAgronomico(lav).fasePlanta}</strong></p>
+                <p class="text-sm text-stone-600 mb-2">Data de início: <strong>${dataInicio.toLocaleDateString('pt-BR')}</strong></p>
+                <p class="text-sm text-stone-600">Colheita estimada: <strong>${dataColheita.toLocaleDateString('pt-BR')}</strong> (${diasRestantes} dias restantes)</p>
             `;
+            document.getElementById('barraProgresso').style.width = progressoPercent + '%';
+            document.getElementById('progressoInicio').innerText = `Dia 0 (${dataInicio.toLocaleDateString('pt-BR')})`;
+            document.getElementById('progressoFim').innerText = `Dia ${ciclo} (${dataColheita.toLocaleDateString('pt-BR')})`;
             document.getElementById('cicloEtapas').innerHTML = `<ul class="list-disc pl-5 space-y-3">${info.fases || '<li>Informação de ciclo não disponível.</li>'}</ul>`;
+
+            // Aviso crítico se em fase reprodutiva ou maturação
+            const faseAtual = oCerebroAgronomico(lav).fasePlanta;
+            const aviso = document.getElementById('cicloAviso');
+            if (faseAtual.includes('Reprodutiva') || faseAtual.includes('Maturação')) {
+                aviso.classList.remove('esconder');
+            } else {
+                aviso.classList.add('esconder');
+            }
+
             abrirJanela('modalCiclo');
         }
 
