@@ -6,83 +6,46 @@
     <title>SoloVivo - Gestão Agrícola</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Fonte Nunito: Muito mais arredondada e confortável para os olhos */
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+        /* Fonte Nunito: Moderna, limpa e altamente confortável para leitura longa */
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap');
         
-        body { 
-            font-family: 'Nunito', sans-serif; 
-            -webkit-tap-highlight-color: transparent; 
-            background-color: #FAF9F6; 
-        }
+        body { font-family: 'Nunito', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .esconder { display: none !important; }
         
-        .esconder { 
-            display: none !important; 
-        }
+        /* Customização sutil da barra de rolagem */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f5f5f4; }
+        ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 10px; }
         
-        /* Scrollbar customizada e leve */
-        ::-webkit-scrollbar { 
-            width: 8px; 
-        }
-        ::-webkit-scrollbar-track { 
-            background: #F8F7F4; 
-            border-radius: 10px; 
-        }
-        ::-webkit-scrollbar-thumb { 
-            background: #d6d3d1; 
-            border-radius: 10px; 
-        }
+        /* Paleta de Fundo Acolhedora (Off-white quente) */
+        .bg-main { background-color: #FAF9F6; }
         
-        /* Fundo do Login com máscara escura para destacar o card branco */
+        /* Imagem de Fundo do Login com escurecimento confortável */
         .bg-login { 
-            background: linear-gradient(rgba(28, 25, 23, 0.85), rgba(6, 78, 59, 0.90)), 
+            background: linear-gradient(rgba(41, 37, 36, 0.85), rgba(20, 83, 45, 0.90)), 
                         url('https://images.pexels.com/photos/2165688/pexels-photo-2165688.jpeg?auto=compress&cs=tinysrgb&w=1920'); 
             background-size: cover; 
             background-position: center; 
             background-attachment: fixed;
         }
 
-        /* Imagens padronizadas */
-        .img-praga { 
-            width: 100%; 
-            height: 220px; 
-            object-fit: cover; 
-            border-radius: 1.5rem 1.5rem 0 0; 
-        }
-        .img-solo { 
-            width: 100%; 
-            height: 220px; 
-            object-fit: cover; 
-            border-radius: 1.5rem 1.5rem 0 0; 
-        }
+        /* Imagens padronizadas para os cards */
+        .img-praga { width: 100%; height: 180px; object-fit: cover; border-radius: 1.5rem 1.5rem 0 0; }
+        .img-solo { width: 100%; height: 200px; object-fit: cover; border-radius: 1.5rem 1.5rem 0 0; }
         
-        /* Modais Modernos com sombreamento leve */
-        .modal-bg { 
-            background-color: rgba(28, 25, 23, 0.65); 
-            backdrop-filter: blur(3px); 
-            -webkit-backdrop-filter: blur(3px); 
-        }
+        /* Sombras leves e bordas arredondadas (Cards Softs) */
+        .modal-bg { background-color: rgba(28, 25, 23, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+        .card-soft { background: #ffffff; border: 1px solid #f5f5f4; border-radius: 1.5rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .card-soft:hover { transform: translateY(-3px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.06); }
         
-        .card-soft { 
-            background: #ffffff; 
-            border: 1px solid #e7e5e4; 
-            border-radius: 1.5rem; 
-            box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.05); 
-            transition: transform 0.2s ease, box-shadow 0.2s ease; 
-        }
-        .card-soft:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.08); 
-        }
-        
-        .pb-safe { 
-            padding-bottom: env(safe-area-inset-bottom, 20px); 
-        }
+        /* Previne o layout quebrar no iPhone/Android na parte inferior */
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
     </style>
 </head>
-<body class="text-stone-700 antialiased selection:bg-emerald-200 selection:text-emerald-900">
+<body class="bg-main text-stone-700 antialiased selection:bg-emerald-200 selection:text-emerald-900">
 
     <div id="viewLogin" class="min-h-screen flex flex-col justify-center items-center p-4 bg-login">
-        <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-2xl w-full max-w-md border border-white/20">
+        <div class="bg-white/95 p-8 md:p-10 rounded-[2rem] shadow-2xl w-full max-w-md">
             
             <div class="text-center mb-6">
                 <div class="text-6xl mb-2 drop-shadow-sm">🌱</div>
@@ -97,28 +60,26 @@
             
             <form id="formEntrada" onsubmit="realizarLogin(event)" class="space-y-4 mt-6">
                 <div>
-                    <label class="block text-stone-500 font-bold mb-1 text-xs uppercase ml-1 tracking-widest">Usuário</label>
-                    <input type="text" id="inpUsuario" class="w-full px-5 py-4 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 text-stone-800 font-bold transition-colors" placeholder="Nome de acesso" required>
+                    <label class="block text-stone-500 font-bold mb-1.5 text-xs uppercase ml-1">Usuário</label>
+                    <input type="text" id="inpUsuario" class="w-full px-4 py-3.5 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 text-stone-800 font-bold transition-colors" placeholder="Nome de acesso" required>
                 </div>
                 <div>
-                    <label class="block text-stone-500 font-bold mb-1 text-xs uppercase ml-1 tracking-widest">Senha</label>
-                    <input type="password" id="inpSenha" class="w-full px-5 py-4 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 text-stone-800 font-bold transition-colors" placeholder="••••••••" required>
+                    <label class="block text-stone-500 font-bold mb-1.5 text-xs uppercase ml-1">Senha</label>
+                    <input type="password" id="inpSenha" class="w-full px-4 py-3.5 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 text-stone-800 font-bold transition-colors" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="w-full bg-emerald-600 text-white font-black text-lg py-4 rounded-xl hover:bg-emerald-700 active:scale-[0.98] transition-all shadow-md mt-2">
-                    Acessar Sistema
-                </button>
-                <p class="text-center text-stone-500 font-bold text-sm pt-2">Novo por aqui? <a href="#" onclick="alternarTelaLogin(true)" class="text-emerald-600 hover:text-emerald-800 underline">Criar Conta</a></p>
+                <button type="submit" class="w-full bg-emerald-600 text-white font-black text-lg py-4 rounded-xl hover:bg-emerald-700 active:scale-[0.98] transition-all shadow-md mt-2">Acessar Sistema</button>
+                <p class="text-center text-stone-500 font-medium text-sm pt-2">Novo por aqui? <a href="#" onclick="alternarTelaLogin(true)" class="text-emerald-600 hover:text-emerald-800 font-bold">Criar Conta</a></p>
             </form>
 
-            <form id="formCadastro" class="esconder space-y-4 mt-4" onsubmit="registrarNovaConta(event)">
+            <form id="formCadastro" class="esconder space-y-4" onsubmit="registrarNovaConta(event)">
                 <h2 class="text-xl font-black text-stone-800 text-center mb-4">Crie sua Conta Grátis</h2>
-                <input type="text" id="cadNome" placeholder="Nome completo" class="w-full px-4 py-3.5 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 font-bold" required>
-                <input type="email" id="cadEmail" placeholder="E-mail" class="w-full px-4 py-3.5 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 font-bold" required>
-                <input type="password" id="cadSenha1" placeholder="Crie uma senha" class="w-full px-4 py-3.5 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 font-bold" required>
-                <input type="password" id="cadSenha2" placeholder="Confirme a senha" class="w-full px-4 py-3.5 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 font-bold" required>
+                <input type="text" id="cadNome" placeholder="Nome completo" class="w-full px-4 py-3 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 font-bold" required>
+                <input type="email" id="cadEmail" placeholder="E-mail" class="w-full px-4 py-3 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 font-bold" required>
+                <input type="password" id="cadSenha1" placeholder="Crie uma senha" class="w-full px-4 py-3 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 font-bold" required>
+                <input type="password" id="cadSenha2" placeholder="Confirme a senha" class="w-full px-4 py-3 border-2 border-stone-100 rounded-xl focus:border-emerald-500 outline-none bg-stone-50 font-bold" required>
                 <p id="msgErroSenha" class="text-red-500 text-xs font-bold text-center esconder bg-red-50 py-2 rounded-lg">⚠️ As senhas não batem.</p>
                 <button type="submit" class="w-full bg-stone-800 text-white font-black text-lg py-4 rounded-xl hover:bg-stone-900 active:scale-[0.98] transition-all mt-2">Cadastrar</button>
-                <p class="text-center text-stone-500 font-bold text-sm mt-2"><a href="#" onclick="alternarTelaLogin(false)" class="text-emerald-600 underline">Voltar ao Login</a></p>
+                <p class="text-center text-stone-500 font-medium text-sm mt-2"><a href="#" onclick="alternarTelaLogin(false)" class="text-emerald-600 font-bold">Voltar ao Login</a></p>
             </form>
         </div>
     </div>
@@ -128,14 +89,14 @@
         <header class="bg-white border-b border-stone-200 shadow-sm sticky top-0 z-40">
             <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <div class="bg-emerald-50 p-2 rounded-xl border border-emerald-100"><span class="text-2xl">🌱</span></div>
+                    <div class="bg-emerald-50 p-2 rounded-xl"><span class="text-2xl">🌱</span></div>
                     <div>
-                        <h1 class="text-2xl font-black text-emerald-900 leading-none tracking-tight">SoloVivo</h1>
-                        <p id="lblNomeFazenda" class="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-1">Propriedade ND</p>
+                        <h1 class="text-xl font-black text-emerald-900 leading-none">SoloVivo</h1>
+                        <p id="lblNomeFazenda" class="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-0.5">Propriedade ND</p>
                     </div>
                 </div>
                 
-                <div class="hidden md:flex items-center gap-3 bg-stone-50 border border-stone-200 px-5 py-2.5 rounded-2xl">
+                <div class="hidden md:flex items-center gap-3 bg-stone-50 border border-stone-200 px-4 py-2 rounded-2xl">
                     <span id="lblIconeClima" class="text-2xl">📡</span>
                     <div>
                         <p class="text-[9px] font-black text-emerald-600 uppercase tracking-widest" id="lblLocalFazenda">Local ND</p>
@@ -145,392 +106,346 @@
 
                 <div class="flex items-center gap-4">
                     <span id="lblNomeUsuario" class="hidden sm:block text-sm font-bold text-stone-500"></span>
-                    <button onclick="realizarLogoff()" class="bg-red-50 border border-red-100 text-red-600 hover:bg-red-500 hover:text-white px-5 py-2.5 rounded-xl text-xs font-black transition-colors">SAIR</button>
+                    <button onclick="realizarLogoff()" class="bg-red-50 text-red-600 hover:bg-red-500 hover:text-white px-4 py-2 rounded-xl text-xs font-black transition-colors">Sair</button>
                 </div>
             </div>
         </header>
 
-        <main class="flex-grow p-4 md:p-8 max-w-7xl mx-auto w-full space-y-8">
+        <main class="flex-grow p-4 md:p-6 max-w-7xl mx-auto w-full space-y-6">
             
-            <div class="md:hidden bg-white border border-stone-200 px-5 py-4 rounded-2xl flex items-center justify-between shadow-sm">
+            <div class="md:hidden bg-white border border-stone-200 px-4 py-3 rounded-2xl flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-3">
                     <span id="lblIconeClimaMobile" class="text-2xl">📡</span>
                     <div>
                         <p class="text-[9px] font-black text-emerald-600 uppercase tracking-widest" id="lblLocalFazendaMobile">Local ND</p>
-                        <p class="text-sm font-bold text-stone-600" id="lblDescClimaMobile">Conectando radares...</p>
+                        <p class="text-xs font-bold text-stone-600" id="lblDescClimaMobile">Conectando radares...</p>
                     </div>
                 </div>
             </div>
 
             <section>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-                    <button onclick="abrirJanela('modalPlanejamento')" class="card-soft flex flex-col items-center justify-center p-6 gap-3 group active:scale-95 border-t-4 border-blue-400">
-                        <div class="bg-blue-50 text-blue-600 p-4 rounded-2xl text-3xl group-hover:bg-blue-100 transition-colors">📝</div>
-                        <span class="text-sm font-black text-stone-700 uppercase tracking-wide">Planejar</span>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                    <button onclick="abrirJanela('modalPlanejamento')" class="card-soft flex flex-col items-center justify-center p-5 gap-3 group active:scale-95 border-t-4 border-blue-400">
+                        <div class="bg-blue-50 text-blue-600 p-3 rounded-2xl text-2xl group-hover:bg-blue-100 transition-colors">📝</div>
+                        <span class="text-xs font-black text-stone-600 uppercase tracking-wide">Planejar</span>
                     </button>
-                    <button onclick="abrirJanela('modalPlantio')" class="card-soft flex flex-col items-center justify-center p-6 gap-3 group active:scale-95 border-t-4 border-emerald-400">
-                        <div class="bg-emerald-50 text-emerald-600 p-4 rounded-2xl text-3xl group-hover:bg-emerald-100 transition-colors">🌱</div>
-                        <span class="text-sm font-black text-stone-700 uppercase tracking-wide">Lavoura</span>
+                    <button onclick="abrirJanela('modalPlantio')" class="card-soft flex flex-col items-center justify-center p-5 gap-3 group active:scale-95 border-t-4 border-emerald-400">
+                        <div class="bg-emerald-50 text-emerald-600 p-3 rounded-2xl text-2xl group-hover:bg-emerald-100 transition-colors">🌱</div>
+                        <span class="text-xs font-black text-stone-600 uppercase tracking-wide">Lavoura</span>
                     </button>
-                    <button onclick="abrirJanela('modalDespesas')" class="card-soft flex flex-col items-center justify-center p-6 gap-3 group active:scale-95 border-t-4 border-amber-400">
-                        <div class="bg-amber-50 text-amber-600 p-4 rounded-2xl text-3xl group-hover:bg-amber-100 transition-colors">💰</div>
-                        <span class="text-sm font-black text-stone-700 uppercase tracking-wide">Financeiro</span>
+                    <button onclick="abrirJanela('modalDespesas')" class="card-soft flex flex-col items-center justify-center p-5 gap-3 group active:scale-95 border-t-4 border-amber-400">
+                        <div class="bg-amber-50 text-amber-600 p-3 rounded-2xl text-2xl group-hover:bg-amber-100 transition-colors">💰</div>
+                        <span class="text-xs font-black text-stone-600 uppercase tracking-wide">Financeiro</span>
                     </button>
-                    <button onclick="abrirJanela('modalPragas')" class="card-soft flex flex-col items-center justify-center p-6 gap-3 group active:scale-95 border-t-4 border-red-400">
-                        <div class="bg-red-50 text-red-600 p-4 rounded-2xl text-3xl group-hover:bg-red-100 transition-colors">🐛</div>
-                        <span class="text-sm font-black text-stone-700 uppercase tracking-wide">Pragas</span>
+                    <button onclick="abrirJanela('modalPragas')" class="card-soft flex flex-col items-center justify-center p-5 gap-3 group active:scale-95 border-t-4 border-red-400">
+                        <div class="bg-red-50 text-red-600 p-3 rounded-2xl text-2xl group-hover:bg-red-100 transition-colors">🐛</div>
+                        <span class="text-xs font-black text-stone-600 uppercase tracking-wide">Pragas</span>
                     </button>
-                    <button onclick="abrirJanela('modalSolos')" class="card-soft flex flex-col items-center justify-center p-6 gap-3 group active:scale-95 border-t-4 border-orange-400">
-                        <div class="bg-orange-50 text-orange-600 p-4 rounded-2xl text-3xl group-hover:bg-orange-100 transition-colors">📖</div>
-                        <span class="text-sm font-black text-stone-700 uppercase tracking-wide">Solos</span>
+                    <button onclick="abrirJanela('modalSolos')" class="card-soft flex flex-col items-center justify-center p-5 gap-3 group active:scale-95 border-t-4 border-orange-400">
+                        <div class="bg-orange-50 text-orange-600 p-3 rounded-2xl text-2xl group-hover:bg-orange-100 transition-colors">📖</div>
+                        <span class="text-xs font-black text-stone-600 uppercase tracking-wide">Solos</span>
                     </button>
-                    <button onclick="abrirJanela('modalPerfil')" class="card-soft md:col-span-5 col-span-2 flex flex-row items-center justify-center p-5 gap-4 active:scale-95 bg-stone-800 text-white border-none hover:bg-stone-700">
-                        <span class="text-2xl">⚙️</span>
-                        <span class="text-sm font-black uppercase tracking-widest text-stone-100">Configurações da Propriedade</span>
+                    <button onclick="abrirJanela('modalPerfil')" class="card-soft md:col-span-5 col-span-2 flex flex-row items-center justify-center p-4 gap-3 active:scale-95 bg-stone-800 text-white border-none hover:bg-stone-700">
+                        <span class="text-xl">⚙️</span>
+                        <span class="text-xs font-black uppercase tracking-widest text-stone-200">Configurações da Propriedade</span>
                     </button>
                 </div>
             </section>
 
-            <div id="boxAlertaClima" class="esconder bg-orange-50 border border-orange-200 p-5 rounded-2xl flex items-start gap-4 shadow-sm">
-                <span class="text-3xl mt-1 drop-shadow-sm">⚠️</span>
+            <div id="boxAlertaClima" class="esconder bg-orange-50 border-l-4 border-orange-400 p-4 rounded-2xl flex items-start gap-3 shadow-sm">
+                <span class="text-2xl mt-0.5">⚠️</span>
                 <div>
-                    <h3 class="font-black text-orange-900 text-base">Aviso Agrometeorológico</h3>
-                    <p id="txtAlertaClima" class="text-orange-800 text-sm mt-1 font-bold leading-relaxed"></p>
+                    <h3 class="font-black text-orange-900 text-sm">Aviso Agrometeorológico</h3>
+                    <p id="txtAlertaClima" class="text-orange-800 text-xs mt-1 font-medium leading-relaxed"></p>
                 </div>
             </div>
 
-            <section class="pt-4">
-                <h2 class="text-xl font-black text-stone-800 mb-5 flex items-center gap-2">🚜 Monitoramento Ativo</h2>
-                <div id="gridLavouras" class="grid grid-cols-1 lg:grid-cols-2 gap-6"></div>
+            <section class="pt-2">
+                <h2 class="text-lg font-black text-stone-800 mb-4 flex items-center gap-2">🚜 Monitoramento Ativo</h2>
+                <div id="gridLavouras" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
             </section>
 
-            <section class="pt-4">
-                <h2 class="text-xl font-black text-stone-800 mb-5 flex items-center gap-2">📋 Cronograma Estratégico</h2>
-                <div id="gridPlanejamentos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <section class="pt-2">
+                <h2 class="text-lg font-black text-stone-800 mb-4 flex items-center gap-2">📋 Cronograma Estratégico</h2>
+                <div id="gridPlanejamentos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
             </section>
 
         </main>
     </div>
 
-    <div id="modalPerfil" class="esconder fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden max-h-[90vh] flex flex-col">
+    <div id="modalPerfil" class="esconder fixed inset-0 z-50 flex items-center justify-center p-3 md:p-4 modal-bg">
+        <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-4xl overflow-hidden max-h-[90vh] flex flex-col">
             <div class="p-6 border-b border-stone-100 flex justify-between items-center bg-stone-50">
                 <h3 class="font-black text-xl text-stone-800 flex items-center gap-2">⚙️ Perfil da Propriedade</h3>
-                <button onclick="fecharJanela('modalPerfil')" class="w-10 h-10 bg-stone-200 text-stone-600 hover:bg-red-500 hover:text-white rounded-full flex items-center justify-center font-bold transition-colors text-xl">✕</button>
+                <button onclick="fecharJanela('modalPerfil')" class="w-8 h-8 bg-stone-200 text-stone-600 hover:bg-red-500 hover:text-white rounded-full flex items-center justify-center font-bold transition-colors">✕</button>
             </div>
             <div class="overflow-y-auto p-6 md:p-8 flex-grow">
                 <form onsubmit="salvarPerfil(event)" class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                        <div class="md:col-span-3">
-                            <label class="block font-bold text-xs text-stone-400 mb-2 uppercase ml-1 tracking-widest">Nome da Propriedade</label>
-                            <input type="text" id="cfgNome" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 focus:border-emerald-500 outline-none text-base font-bold" required>
-                        </div>
-                        <div class="md:col-span-3">
-                            <label class="block font-bold text-xs text-stone-400 mb-2 uppercase ml-1 tracking-widest">Endereço Completo</label>
-                            <input type="text" id="cfgEndereco" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 focus:border-emerald-500 outline-none text-base font-bold" required>
-                        </div>
-                        <div>
-                            <label class="block font-bold text-xs text-stone-400 mb-2 uppercase ml-1 tracking-widest">Estado (UF)</label>
-                            <select id="cfgEstado" onchange="carregarCidadesIBGE()" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 text-base font-bold focus:border-emerald-500 outline-none" required>
-                                <option value="">Carregando...</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block font-bold text-xs text-stone-400 mb-2 uppercase ml-1 tracking-widest">Município (Clima Automático)</label>
-                            <select id="cfgCidade" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 text-base font-bold focus:border-emerald-500 outline-none" disabled required>
-                                <option value="">Selecione estado</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-3">
-                            <label class="block font-bold text-xs text-stone-400 mb-2 uppercase ml-1 tracking-widest">Área Cultivável (Ha)</label>
-                            <input type="number" step="0.1" id="cfgArea" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 text-base font-bold focus:border-emerald-500 outline-none" required>
+                        <div class="md:col-span-3"><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Nome da Propriedade</label><input type="text" id="cfgNome" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 focus:border-emerald-500 outline-none text-sm font-bold" required></div>
+                        <div class="md:col-span-3"><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Endereço Completo</label><input type="text" id="cfgEndereco" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 focus:border-emerald-500 outline-none text-sm font-bold" required></div>
+                        <div><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Estado (UF)</label><select id="cfgEstado" onchange="carregarCidadesIBGE()" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 text-sm font-bold focus:border-emerald-500 outline-none" required><option value="">Carregando...</option></select></div>
+                        <div class="md:col-span-2"><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Município (Ativa Clima Automático)</label><select id="cfgCidade" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 text-sm font-bold focus:border-emerald-500 outline-none" disabled required><option value="">Selecione estado</option></select></div>
+                        <div class="md:col-span-3"><label class="block font-bold text-[10px] text-stone-400 mb-1.5 uppercase ml-1">Área Cultivável (Ha)</label><input type="number" step="0.1" id="cfgArea" class="w-full p-4 border-2 border-stone-100 rounded-xl bg-stone-50 text-sm font-bold focus:border-emerald-500 outline-none" required></div>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100">
+                        <label class="block font-black text-sm text-stone-600 mb-4 uppercase">Maquinário Disponível</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="listaMaquinas">
+                            <label class="flex items-center gap-2 p-4 border border-stone-200 rounded-xl bg-white text-xs font-bold cursor-pointer hover:bg-emerald-50 transition-colors"><input type="checkbox" value="Trator" class="accent-emerald-600 w-4 h-4"> Trator</label>
+                            <label class="flex items-center gap-2 p-4 border border-stone-200 rounded-xl bg-white text-xs font-bold cursor-pointer hover:bg-emerald-50 transition-colors"><input type="checkbox" value="Colheitadeira" class="accent-emerald-600 w-4 h-4"> Colheita</label>
+                            <label class="flex items-center gap-2 p-4 border border-stone-200 rounded-xl bg-white text-xs font-bold cursor-pointer hover:bg-emerald-50 transition-colors"><input type="checkbox" value="Semeadeira" class="accent-emerald-600 w-4 h-4"> Plantio</label>
+                            <label class="flex items-center gap-2 p-4 border border-stone-200 rounded-xl bg-white text-xs font-bold cursor-pointer hover:bg-emerald-50 transition-colors"><input type="checkbox" value="Pulverizador" class="accent-emerald-600 w-4 h-4"> Pulverizador</label>
                         </div>
                     </div>
-                    <div class="pt-6 border-t border-stone-100">
-                        <label class="block font-black text-base text-stone-600 mb-4 uppercase">Maquinário Disponível</label>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="listaMaquinas">
-                            <label class="flex items-center gap-3 p-4 border-2 border-stone-100 rounded-xl bg-white text-sm font-bold cursor-pointer hover:bg-emerald-50 hover:border-emerald-200 transition-colors"><input type="checkbox" value="Trator" class="accent-emerald-600 w-5 h-5"> Trator</label>
-                            <label class="flex items-center gap-3 p-4 border-2 border-stone-100 rounded-xl bg-white text-sm font-bold cursor-pointer hover:bg-emerald-50 hover:border-emerald-200 transition-colors"><input type="checkbox" value="Colheitadeira" class="accent-emerald-600 w-5 h-5"> Colheita</label>
-                            <label class="flex items-center gap-3 p-4 border-2 border-stone-100 rounded-xl bg-white text-sm font-bold cursor-pointer hover:bg-emerald-50 hover:border-emerald-200 transition-colors"><input type="checkbox" value="Semeadeira" class="accent-emerald-600 w-5 h-5"> Plantio</label>
-                            <label class="flex items-center gap-3 p-4 border-2 border-stone-100 rounded-xl bg-white text-sm font-bold cursor-pointer hover:bg-emerald-50 hover:border-emerald-200 transition-colors"><input type="checkbox" value="Pulverizador" class="accent-emerald-600 w-5 h-5"> Pulverizador</label>
-                        </div>
-                    </div>
-                    <button type="submit" class="w-full bg-stone-800 text-white font-black text-base uppercase tracking-widest py-5 rounded-xl hover:bg-stone-900 shadow-md mt-6 active:scale-[0.98]">
-                        Salvar Perfil
-                    </button>
+                    <button type="submit" class="w-full bg-stone-800 text-white font-black text-sm uppercase tracking-widest py-4 rounded-xl hover:bg-stone-900 shadow-md mt-4 active:scale-[0.98]">Salvar Perfil</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div id="modalPlanejamento" class="esconder fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
+    <div id="modalPlanejamento" class="esconder fixed inset-0 z-50 flex items-center justify-center p-3 md:p-4 modal-bg">
         <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col">
-            <div class="p-6 border-b border-blue-100 flex justify-between items-center bg-blue-50 rounded-t-3xl">
+            <div class="p-6 border-b border-stone-100 flex justify-between items-center bg-blue-50">
                 <h3 class="font-black text-xl text-blue-900 flex items-center gap-2">📝 Planejamento Agronômico</h3>
-                <button onclick="fecharJanela('modalPlanejamento')" class="w-10 h-10 bg-blue-200 text-blue-700 hover:bg-blue-600 hover:text-white rounded-full flex items-center justify-center font-bold transition-colors text-xl">✕</button>
+                <button onclick="fecharJanela('modalPlanejamento')" class="w-8 h-8 bg-blue-200 text-blue-700 hover:bg-blue-600 hover:text-white rounded-full flex items-center justify-center font-bold transition-colors">✕</button>
             </div>
             <div class="overflow-y-auto p-6 md:p-8 flex-grow">
                 
-                <div class="mb-8 bg-stone-50 border border-stone-200 p-5 rounded-2xl flex items-start gap-4">
-                    <span class="text-3xl mt-1">📅</span>
+                <div class="mb-6 bg-stone-50 border border-stone-200 p-4 rounded-2xl flex items-start gap-3">
+                    <span class="text-2xl mt-0.5">📅</span>
                     <div>
-                        <h4 class="font-black text-stone-800 text-base">Dica Sazonal de Plantio</h4>
-                        <p class="text-stone-600 text-sm mt-1.5 font-bold leading-relaxed">Em <strong>Abril/Maio</strong> no Sudeste, a prioridade técnica é o plantio de culturas de inverno (<strong>Trigo, Batata, Cebola e Feijão</strong>). Culturas longas de verão sofrem risco severo de déficit hídrico.</p>
+                        <h4 class="font-black text-stone-800 text-sm">Dica Sazonal</h4>
+                        <p class="text-stone-600 text-xs mt-1 font-medium leading-relaxed">Em <strong>Abril/Maio</strong> no Sudeste, a prioridade técnica é o plantio de culturas de inverno (<strong>Trigo, Batata, Cebola e Feijão</strong>). Culturas longas de verão sofrem risco severo de déficit hídrico.</p>
                     </div>
                 </div>
 
-                <form onsubmit="gerarPlanejamento(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <form onsubmit="gerarPlanejamento(event)" class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
                     <div>
-                        <label class="flex justify-between items-center text-xs font-bold text-stone-400 uppercase tracking-widest ml-1 mb-2">
+                        <label class="flex justify-between items-center text-[10px] font-bold text-stone-400 uppercase ml-1 mb-1">
                             <span>Cultura</span>
-                            <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-[9px] border border-blue-200">ℹ️ Exibe Fases</span>
+                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[8px]">Selecione para ver as fases</span>
                         </label>
-                        <select id="planCultura" class="w-full p-4 border-2 border-stone-100 rounded-xl text-base font-bold bg-stone-50 outline-none focus:border-blue-500" required onchange="mostrarInfoFases(this.value)"></select>
+                        <select id="planCultura" class="w-full p-4 border-2 border-stone-100 rounded-xl text-sm font-bold bg-stone-50 outline-none focus:border-blue-500" required onchange="mostrarInfoFases(this.value)"></select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest ml-1 mb-2">Solo Predominante</label>
-                        <select id="planSolo" class="w-full p-4 border-2 border-stone-100 rounded-xl text-base font-bold bg-stone-50 outline-none focus:border-blue-500" required>
+                        <label class="block text-[10px] font-bold text-stone-400 uppercase ml-1 mb-1">Solo</label>
+                        <select id="planSolo" class="w-full p-4 border-2 border-stone-100 rounded-xl text-sm font-bold bg-stone-50 outline-none focus:border-blue-500" required>
                             <option value="Latossolo">Latossolo (Terra Roxa/Profundo)</option>
                             <option value="Arenoso">Arenoso (Baixa retenção de água)</option>
-                            <option value="Argiloso">Argiloso (Pesado/Barrento)</option>
+                            <option value="Argiloso">Argiloso (Pesado)</option>
                             <option value="Gleissolo">Gleissolo (Várzea/Úmido)</option>
                         </select>
                     </div>
-                    <div><label class="block text-xs font-bold text-stone-400 uppercase tracking-widest ml-1 mb-2">Área (Ha)</label><input type="number" step="0.1" id="planArea" class="w-full p-4 border-2 border-stone-100 rounded-xl text-base font-bold bg-stone-50 outline-none focus:border-blue-500" required></div>
-                    <div><label class="block text-xs font-bold text-stone-400 uppercase tracking-widest ml-1 mb-2">Data de Início</label><input type="date" id="planData" class="w-full p-4 border-2 border-stone-100 rounded-xl text-base font-bold bg-stone-50 outline-none focus:border-blue-500" required></div>
+                    <div><label class="block text-[10px] font-bold text-stone-400 uppercase ml-1 mb-1">Área (Ha)</label><input type="number" step="0.1" id="planArea" class="w-full p-4 border-2 border-stone-100 rounded-xl text-sm font-bold bg-stone-50 outline-none focus:border-blue-500" required></div>
+                    <div><label class="block text-[10px] font-bold text-stone-400 uppercase ml-1 mb-1">Data Início</label><input type="date" id="planData" class="w-full p-4 border-2 border-stone-100 rounded-xl text-sm font-bold bg-stone-50 outline-none focus:border-blue-500" required></div>
                     
-                    <div id="boxFasesCultura" class="esconder md:col-span-2 bg-blue-50/50 border border-blue-100 p-6 rounded-2xl mt-2">
-                        <h4 class="font-black text-base text-blue-900 mb-4 flex items-center gap-2">ℹ️ Fases do Ciclo Fenológico (<span id="lblNomeCulturaFases"></span>)</h4>
-                        <ul id="listaFasesCultura" class="text-sm text-blue-800 space-y-3 list-disc pl-5 font-semibold leading-relaxed"></ul>
+                    <div id="boxFasesCultura" class="esconder md:col-span-2 bg-blue-50/50 border border-blue-100 p-5 rounded-2xl">
+                        <h4 class="font-black text-sm text-blue-900 mb-3 flex items-center gap-2">ℹ️ Fases do Ciclo (<span id="lblNomeCulturaFases"></span>)</h4>
+                        <ul id="listaFasesCultura" class="text-sm text-blue-800 space-y-2 list-disc pl-5 font-medium leading-relaxed"></ul>
                     </div>
 
-                    <div class="md:col-span-2 mt-4"><button type="submit" class="w-full bg-blue-600 text-white font-black text-base uppercase tracking-widest py-5 rounded-xl hover:bg-blue-700 active:scale-[0.98] shadow-md transition-all">Gerar Relatório de Base</button></div>
+                    <div class="md:col-span-2"><button type="submit" class="w-full bg-blue-600 text-white font-black text-sm uppercase tracking-widest py-4 rounded-xl hover:bg-blue-700 active:scale-[0.98] shadow-md mt-2">Gerar Planejamento Base</button></div>
                 </form>
 
-                <div id="resultadoPlanejamento" class="esconder space-y-5 pt-8 border-t-2 border-stone-100">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="font-black text-stone-800 text-2xl">Relatório Projetado</h4>
-                        <button onclick="imprimirDocumento('printAreaPlanejamento', 'Planejamento Agronômico')" class="text-blue-600 text-sm font-black border-2 border-blue-200 px-5 py-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 transition-colors">📄 Exportar PDF</button>
+                <div id="resultadoPlanejamento" class="esconder space-y-4 pt-6 border-t border-stone-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-black text-stone-800 text-xl">Relatório Gerado</h4>
+                        <button onclick="imprimirDocumento('printAreaPlanejamento', 'Planejamento Agronômico')" class="text-blue-600 text-xs font-black border border-blue-200 px-4 py-2 rounded-lg bg-blue-50 hover:bg-blue-100">Gerar PDF</button>
                     </div>
                     
-                    <div id="printAreaPlanejamento" class="space-y-5">
-                        <div class="bg-white p-6 rounded-2xl border-2 border-stone-100 shadow-sm">
+                    <div id="printAreaPlanejamento" class="space-y-4">
+                        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm">
                             <div id="planResSemente" class="text-stone-800"></div>
                         </div>
-                        <div class="bg-white p-6 rounded-2xl border-2 border-stone-100 shadow-sm">
-                            <p class="text-xs font-black text-stone-400 uppercase tracking-widest mb-4">Protocolo de Base para o Solo</p>
-                            <ul id="planResPreparo" class="list-disc pl-5 text-sm text-stone-600 space-y-4 font-bold leading-relaxed"></ul>
+                        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm">
+                            <p class="text-[10px] font-black text-stone-400 uppercase tracking-widest mb-3">Protocolo de Base para o Solo</p>
+                            <ul id="planResPreparo" class="list-disc pl-5 text-sm text-stone-600 space-y-3 leading-relaxed"></ul>
                         </div>
                     </div>
                     
-                    <button onclick="salvarPlanoEstrategico()" class="w-full bg-emerald-600 text-white font-black text-base uppercase tracking-widest py-5 rounded-xl hover:bg-emerald-700 active:scale-[0.98] shadow-md transition-all mt-4">Salvar na Agenda</button>
+                    <button onclick="salvarPlanoEstrategico()" class="w-full bg-emerald-600 text-white font-black text-sm uppercase tracking-widest py-4 rounded-xl hover:bg-emerald-700 active:scale-[0.98] shadow-md mt-2">Salvar Agenda</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="modalPlantio" class="esconder fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
+    <div id="modalPlantio" class="esconder fixed inset-0 z-50 flex items-center justify-center p-3 md:p-4 modal-bg">
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col">
-            <div class="p-6 border-b border-emerald-100 flex justify-between items-center bg-emerald-50 rounded-t-3xl">
+            <div class="p-6 border-b border-stone-100 flex justify-between items-center bg-emerald-50">
                 <h3 class="font-black text-xl text-emerald-900 flex items-center gap-2">🌱 Iniciar Lavoura</h3>
-                <button onclick="fecharJanela('modalPlantio')" class="w-10 h-10 bg-emerald-200 hover:bg-emerald-600 hover:text-white rounded-full flex items-center justify-center font-bold text-emerald-800 transition-colors text-xl">✕</button>
+                <button onclick="fecharJanela('modalPlantio')" class="w-8 h-8 bg-emerald-200 hover:bg-emerald-600 hover:text-white rounded-full flex items-center justify-center font-bold text-emerald-800 transition-colors">✕</button>
             </div>
-            <form onsubmit="salvarNovaLavoura(event)" class="p-6 md:p-8 space-y-6 flex-grow overflow-y-auto">
-                <div><label class="block text-xs font-bold text-stone-400 uppercase tracking-widest ml-1 mb-2">Cultura Semeada</label><select id="plCultura" class="w-full p-4 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none text-base" required></select></div>
-                <div><label class="block text-xs font-bold text-stone-400 uppercase tracking-widest ml-1 mb-2">Solo Predominante</label>
-                    <select id="plSolo" class="w-full p-4 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none text-base" required>
+            <form onsubmit="salvarNovaLavoura(event)" class="p-6 md:p-8 space-y-5 flex-grow overflow-y-auto">
+                <div><label class="block text-[10px] font-bold text-stone-400 uppercase ml-1 mb-1">Cultura Semeada</label><select id="plCultura" class="w-full p-4 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none" required></select></div>
+                <div><label class="block text-[10px] font-bold text-stone-400 uppercase ml-1 mb-1">Solo Predominante</label>
+                    <select id="plSolo" class="w-full p-4 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none" required>
                         <option value="Latossolo">Latossolo (Terra Roxa/Profundo)</option>
                         <option value="Arenoso">Arenoso (Baixa retenção)</option>
-                        <option value="Argiloso">Argiloso (Pesado/Barrento)</option>
-                        <option value="Gleissolo">Gleissolo (Várzea/Úmido)</option>
+                        <option value="Argiloso">Argiloso (Pesado)</option>
+                        <option value="Gleissolo">Gleissolo (Várzea)</option>
                     </select>
                 </div>
-                <div class="grid grid-cols-2 gap-5">
-                    <div><label class="block text-xs font-bold text-stone-400 uppercase tracking-widest ml-1 mb-2">Data Efetiva</label><input type="date" id="plData" class="w-full p-4 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none text-base" required></div>
-                    <div><label class="block text-xs font-bold text-stone-400 uppercase tracking-widest ml-1 mb-2">Área (Ha)</label><input type="number" step="0.01" id="plArea" class="w-full p-4 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none text-base" required></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-[10px] font-bold text-stone-400 uppercase ml-1 mb-1">Data Efetiva</label><input type="date" id="plData" class="w-full p-4 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none" required></div>
+                    <div><label class="block text-[10px] font-bold text-stone-400 uppercase ml-1 mb-1">Área (Ha)</label><input type="number" step="0.01" id="plArea" class="w-full p-4 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none" required></div>
                 </div>
-                <button type="submit" class="w-full bg-stone-800 text-white font-black text-base uppercase tracking-widest py-5 rounded-xl hover:bg-stone-900 active:scale-[0.98] shadow-md mt-6 transition-transform">Ativar Monitoramento</button>
+                <button type="submit" class="w-full bg-stone-800 text-white font-black text-sm uppercase tracking-widest py-4 rounded-xl hover:bg-stone-900 active:scale-[0.98] shadow-md mt-4">Ativar Monitoramento</button>
             </form>
         </div>
     </div>
 
-    <div id="modalDespesas" class="esconder fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
+    <div id="modalDespesas" class="esconder fixed inset-0 z-50 flex items-center justify-center p-3 md:p-4 modal-bg">
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-6xl max-h-[95vh] flex flex-col overflow-hidden">
-            <div class="p-6 border-b border-stone-700 flex justify-between items-center bg-stone-800 text-white">
+            <div class="p-6 border-b border-stone-100 flex justify-between items-center bg-stone-800 text-white">
                 <h3 class="font-black text-xl flex items-center gap-2">💰 Gestão Financeira (DRE)</h3>
-                <button onclick="fecharJanela('modalDespesas')" class="w-10 h-10 bg-stone-700 hover:bg-red-500 rounded-full flex items-center justify-center font-bold transition-colors text-xl">✕</button>
+                <button onclick="fecharJanela('modalDespesas')" class="w-8 h-8 bg-stone-700 hover:bg-red-500 rounded-full flex items-center justify-center font-bold transition-colors">✕</button>
             </div>
             
-            <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 overflow-y-auto flex-grow">
+            <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 overflow-y-auto flex-grow">
                 <div>
-                    <label class="block font-black text-stone-700 mb-3 text-lg ml-1">1. Selecione o Talhão/Lavoura</label>
-                    <select id="finSelectLavoura" class="w-full p-5 border-2 border-amber-200 rounded-2xl mb-8 bg-amber-50 font-black text-amber-900 focus:border-amber-400 outline-none text-lg shadow-sm" onchange="carregarDespesasLavoura()"></select>
+                    <label class="block font-black text-stone-700 mb-2 text-sm ml-1">1. Selecione o Talhão/Lavoura</label>
+                    <select id="finSelectLavoura" class="w-full p-4 border-2 border-amber-200 rounded-xl mb-6 bg-amber-50 font-bold text-amber-900 focus:border-amber-400 outline-none" onchange="carregarDespesasLavoura()"></select>
 
-                    <h4 class="font-black text-stone-400 uppercase text-xs tracking-widest border-b border-stone-100 pb-3 mb-5 ml-1">2. Custos Lançados (R$)</h4>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-                        <div><label class="block text-[10px] font-black text-stone-500 uppercase tracking-widest mb-1.5 ml-1">Sementes</label><input type="number" id="finSem" class="w-full p-3.5 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none" oninput="calcularBalancoFinanceiro()"></div>
-                        <div><label class="block text-[10px] font-black text-stone-500 uppercase tracking-widest mb-1.5 ml-1">Fertilizantes</label><input type="number" id="finFert" class="w-full p-3.5 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none" oninput="calcularBalancoFinanceiro()"></div>
-                        <div><label class="block text-[10px] font-black text-stone-500 uppercase tracking-widest mb-1.5 ml-1">Defensivos</label><input type="number" id="finDef" class="w-full p-3.5 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none" oninput="calcularBalancoFinanceiro()"></div>
-                        <div><label class="block text-[10px] font-black text-stone-500 uppercase tracking-widest mb-1.5 ml-1">Mão de Obra</label><input type="number" id="finMO" class="w-full p-3.5 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none" oninput="calcularBalancoFinanceiro()"></div>
-                        <div><label class="block text-[10px] font-black text-stone-500 uppercase tracking-widest mb-1.5 ml-1">Maquinário</label><input type="number" id="finMaq" class="w-full p-3.5 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-500 outline-none" oninput="calcularBalancoFinanceiro()"></div>
-                        <div><label class="block text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1.5 ml-1">Energia/Água</label><input type="number" id="finAgua" class="w-full p-3.5 border-2 border-blue-200 rounded-xl font-bold bg-blue-50 text-blue-900 focus:border-blue-500 outline-none" oninput="calcularBalancoFinanceiro()"></div>
+                    <h4 class="font-black text-stone-400 uppercase text-[10px] tracking-widest border-b border-stone-100 pb-2 mb-4 ml-1">2. Custos Lançados (R$)</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+                        <div><label class="block text-[9px] font-black text-stone-500 uppercase mb-1 ml-1">Sementes/Mudas</label><input type="number" id="finSem" class="w-full p-3 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-400 outline-none" oninput="calcularBalancoFinanceiro()"></div>
+                        <div><label class="block text-[9px] font-black text-stone-500 uppercase mb-1 ml-1">Fertilizantes</label><input type="number" id="finFert" class="w-full p-3 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-400 outline-none" oninput="calcularBalancoFinanceiro()"></div>
+                        <div><label class="block text-[9px] font-black text-stone-500 uppercase mb-1 ml-1">Defensivos</label><input type="number" id="finDef" class="w-full p-3 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-400 outline-none" oninput="calcularBalancoFinanceiro()"></div>
+                        <div><label class="block text-[9px] font-black text-stone-500 uppercase mb-1 ml-1">Mão de Obra</label><input type="number" id="finMO" class="w-full p-3 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-400 outline-none" oninput="calcularBalancoFinanceiro()"></div>
+                        <div><label class="block text-[9px] font-black text-stone-500 uppercase mb-1 ml-1">Maquinário</label><input type="number" id="finMaq" class="w-full p-3 border-2 border-stone-100 rounded-xl font-bold bg-stone-50 focus:border-emerald-400 outline-none" oninput="calcularBalancoFinanceiro()"></div>
+                        <div><label class="block text-[9px] font-black text-blue-500 uppercase mb-1 ml-1">Água/Energia</label><input type="number" id="finAgua" class="w-full p-3 border-2 border-blue-100 rounded-xl font-bold bg-blue-50 text-blue-800 focus:border-blue-400 outline-none" oninput="calcularBalancoFinanceiro()"></div>
                     </div>
                     
-                    <div class="p-6 bg-emerald-50/70 rounded-3xl border-2 border-emerald-100 shadow-sm">
-                        <label class="block text-xs font-black text-emerald-900 uppercase tracking-widest mb-2 ml-1" id="lblDreVolume">3. Volume/Área Real Colhida</label>
-                        <input type="number" id="finVolumeReal" class="w-full p-4 border-2 border-emerald-200 bg-white rounded-2xl font-black text-emerald-900 text-2xl outline-none focus:border-emerald-500 mb-6" oninput="calcularBalancoFinanceiro()">
+                    <div class="p-5 bg-emerald-50 rounded-2xl border border-emerald-100 shadow-sm">
+                        <label class="block text-[11px] font-black text-emerald-800 uppercase tracking-widest mb-1.5 ml-1" id="lblDreVolume">3. Volume/Área Real Colhida (Unid)</label>
+                        <input type="number" id="finVolumeReal" class="w-full p-3.5 border-2 border-emerald-200 bg-white rounded-xl font-black text-emerald-900 text-xl outline-none focus:border-emerald-500 mb-4" oninput="calcularBalancoFinanceiro()">
                         
-                        <label class="block text-xs font-black text-emerald-900 uppercase tracking-widest mb-2 ml-1" id="lblDrePreco">4. Preço Médio de Venda</label>
-                        <input type="number" step="0.01" id="finPreco" class="w-full p-4 border-2 border-emerald-200 bg-white rounded-2xl font-black text-emerald-900 text-2xl outline-none focus:border-emerald-500" oninput="calcularBalancoFinanceiro()">
+                        <label class="block text-[11px] font-black text-emerald-800 uppercase tracking-widest mb-1.5 ml-1" id="lblDrePreco">4. Preço Médio de Venda (R$)</label>
+                        <input type="number" step="0.01" id="finPreco" class="w-full p-3.5 border-2 border-emerald-200 bg-white rounded-xl font-black text-emerald-900 text-xl outline-none focus:border-emerald-500" oninput="calcularBalancoFinanceiro()">
                     </div>
                 </div>
 
-                <div class="flex flex-col gap-6">
-                    <div class="bg-stone-900 text-white rounded-3xl p-8 shadow-xl relative overflow-hidden border border-stone-800">
-                        <div class="flex justify-between items-center mb-6 border-b border-stone-700 pb-4 relative z-10">
-                            <h4 class="font-black text-2xl text-stone-100">Demonstrativo Oficial</h4>
-                            <button onclick="imprimirRelatorio('printAreaDRE', 'Demonstrativo de Resultado (DRE)')" class="bg-stone-800 border border-stone-600 hover:bg-stone-700 text-white text-xs uppercase font-black tracking-widest px-4 py-2 rounded-xl shadow-sm transition-colors">📄 PDF</button>
+                <div class="flex flex-col gap-5">
+                    <div class="bg-stone-800 text-white rounded-3xl p-6 shadow-xl relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-5 border-b border-stone-700 pb-3 relative z-10">
+                            <h4 class="font-black text-xl text-stone-100">Demonstrativo Oficial</h4>
+                            <button onclick="imprimirRelatorio('printAreaDRE', 'Demonstrativo de Resultado')" class="bg-stone-700 hover:bg-stone-600 text-white text-[10px] uppercase font-black tracking-widest px-3 py-1.5 rounded-lg shadow-sm">Exportar PDF</button>
                         </div>
                         
                         <div id="printAreaDRE" class="relative z-10">
-                            <div class="flex justify-between items-center mb-4 border-b border-stone-800 pb-3">
-                                <span class="text-sm font-bold text-stone-400">Volume Total Produzido:</span>
-                                <span id="dreVolume" class="font-black text-stone-200 text-lg">0</span>
-                            </div>
-                            <div class="flex justify-between items-center mb-4">
-                                <span class="text-base font-black text-emerald-400">Receita Bruta (+):</span>
-                                <span id="dreReceita" class="font-black text-emerald-400 text-2xl">R$ 0,00</span>
-                            </div>
-                            <div class="flex justify-between items-center mb-6 border-b border-stone-700 pb-6">
-                                <span class="text-base font-black text-red-400">Custos Totais (-):</span>
-                                <span id="dreCustos" class="font-black text-red-400 text-2xl">R$ 0,00</span>
-                            </div>
+                            <div class="flex justify-between mb-3 border-b border-stone-700/50 pb-2"><span class="text-xs font-bold text-stone-400">Total Produzido:</span><span id="dreVolume" class="font-black text-stone-200 text-sm">0</span></div>
+                            <div class="flex justify-between mb-3"><span class="text-sm font-black text-emerald-400">Receita Bruta (+):</span><span id="dreReceita" class="font-black text-emerald-400 text-xl">R$ 0,00</span></div>
+                            <div class="flex justify-between mb-5 border-b border-stone-700 pb-5"><span class="text-sm font-black text-red-400">Custos Totais (-):</span><span id="dreCustos" class="font-black text-red-400 text-xl">R$ 0,00</span></div>
                             
-                            <div class="bg-black/40 p-6 rounded-2xl text-center border border-stone-700 shadow-inner">
-                                <p class="text-xs font-black uppercase text-stone-500 tracking-widest">Lucro Líquido Realizado</p>
-                                <p id="dreLucro" class="text-5xl font-black mt-2 text-stone-300">R$ 0,00</p>
+                            <div class="bg-stone-900 p-5 rounded-2xl text-center border border-stone-700 shadow-inner">
+                                <p class="text-[10px] font-black uppercase text-stone-500 tracking-widest">Lucro Líquido Realizado</p>
+                                <p id="dreLucro" class="text-4xl font-black mt-1 text-stone-300">R$ 0,00</p>
                             </div>
                         </div>
-                        <button onclick="arquivarFechamentoDRE()" class="w-full bg-emerald-600 text-white font-black text-base uppercase tracking-widest py-5 mt-8 rounded-xl hover:bg-emerald-500 active:scale-[0.98] shadow-md transition-transform relative z-10">Arquivar Fechamento</button>
+                        <button onclick="arquivarFechamentoDRE()" class="w-full bg-emerald-600 text-white font-black text-sm uppercase tracking-widest py-4 mt-6 rounded-xl hover:bg-emerald-500 active:scale-[0.98] shadow-md transition-transform relative z-10">Salvar Histórico</button>
                     </div>
 
-                    <div class="bg-white border-2 border-stone-100 rounded-3xl p-6 flex flex-col flex-grow shadow-sm">
-                        <h4 class="font-black text-xs uppercase tracking-widest text-stone-400 mb-4 ml-1">Arquivos DRE Consolidados</h4>
-                        <div id="listaHistoricoDRE" class="space-y-3 overflow-y-auto max-h-[180px] pr-2"></div>
+                    <div class="bg-white border border-stone-200 rounded-3xl p-5 flex flex-col flex-grow shadow-sm">
+                        <h4 class="font-black text-xs uppercase tracking-widest text-stone-400 mb-3 ml-1">Arquivos DRE Passados</h4>
+                        <div id="listaHistoricoDRE" class="space-y-2 overflow-y-auto max-h-[150px]"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="modalPragas" class="esconder fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
+    <div id="modalPragas" class="esconder fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6 modal-bg">
         <div class="bg-main rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col">
-            <div class="bg-red-50 p-6 md:p-8 flex justify-between items-center border-b border-red-100 rounded-t-3xl">
-                <h3 class="font-black text-2xl text-red-900 flex items-center gap-3">🐛 Biblioteca Oficial de Pragas</h3>
-                <button onclick="fecharJanela('modalPragas')" class="w-10 h-10 bg-red-200 text-red-800 hover:bg-red-600 hover:text-white rounded-full font-bold flex items-center justify-center transition-colors text-xl">✕</button>
+            <div class="bg-red-50 p-6 flex justify-between items-center border-b border-red-100 rounded-t-3xl">
+                <h3 class="font-black text-xl text-red-900 flex items-center gap-2">🐛 Biblioteca de Pragas</h3>
+                <button onclick="fecharJanela('modalPragas')" class="w-8 h-8 bg-red-100 text-red-700 hover:bg-red-600 hover:text-white rounded-full font-bold flex items-center justify-center transition-colors">✕</button>
             </div>
             <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 overflow-y-auto">
-                <div class="card-soft bg-white flex flex-col shadow-sm">
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Spodoptera_frugiperda_larva.jpg" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-6 md:p-8 flex-grow">
-                        <div class="flex flex-col sm:flex-row justify-between sm:items-center items-start mb-4 gap-2">
-                            <h4 class="font-black text-2xl text-stone-800">Lagarta-do-cartucho</h4>
-                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-200 px-3 py-1 rounded-lg uppercase tracking-widest">Milho / Algodão</span>
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-black text-xl text-stone-800 leading-tight">Lagarta-do-cartucho</h4>
+                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase tracking-widest">Milho / Algodão</span>
                         </div>
-                        <p class="text-sm text-stone-600 mb-4 leading-relaxed font-bold"><span class="text-red-600">Sintomas:</span> Ocorre nas fases iniciais e de crescimento. As folhas novas ficam com aparência de raspadas (sintoma de "janela") e há forte acúmulo de serragem/fezes dentro do cartucho do milho.</p>
-                        <div class="bg-stone-50 border border-stone-200 p-4 rounded-xl">
-                            <p class="text-sm text-stone-700 leading-relaxed"><strong>Controle Recomendado:</strong> É fundamental o plantio de áreas de refúgio (sem biotecnologia Bt). A aplicação de inseticidas biológicos (<em>Bacillus thuringiensis</em>) ou baculovírus possui alta eficiência se aplicada no início da infestação.</p>
-                        </div>
+                        <p class="text-sm text-stone-600 mb-3 leading-relaxed"><strong>Sintomas:</strong> Ocorre nas fases iniciais e de crescimento. As folhas novas ficam com aparência de raspadas (sintoma de "janela") e há acúmulo de serragem/fezes dentro do cartucho do milho.</p>
+                        <p class="text-sm text-stone-600 leading-relaxed"><strong>Controle Recomendado:</strong> É fundamental o plantio de áreas de refúgio (sem biotecnologia Bt). A aplicação de inseticidas biológicos (<em>Bacillus thuringiensis</em>) ou baculovírus possui alta eficiência se aplicada no início da infestação.</p>
                     </div>
                 </div>
-                <div class="card-soft bg-white flex flex-col shadow-sm">
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Silverleaf_whitefly.jpg" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-6 md:p-8 flex-grow">
-                        <div class="flex flex-col sm:flex-row justify-between sm:items-center items-start mb-4 gap-2">
-                            <h4 class="font-black text-2xl text-stone-800">Mosca-branca</h4>
-                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-200 px-3 py-1 rounded-lg uppercase tracking-widest">Soja / Feijão</span>
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-black text-xl text-stone-800 leading-tight">Mosca-branca</h4>
+                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase tracking-widest">Soja / Feijão</span>
                         </div>
-                        <p class="text-sm text-stone-600 mb-4 leading-relaxed font-bold"><span class="text-red-600">Sintomas:</span> Folhas prateadas e que secam prematuramente. A excreção açucarada atrai o fungo fuliginoso fumagina (fumaça preta). O maior perigo é a transmissão de viroses severas e incuráveis para a planta.</p>
-                        <div class="bg-stone-50 border border-stone-200 p-4 rounded-xl">
-                            <p class="text-sm text-stone-700 leading-relaxed"><strong>Controle Recomendado:</strong> Fazer rotação com plantas não-hospedeiras. Instalação de armadilhas adesivas amarelas no perímetro e aplicação de fungos entomopatogênicos (como a <em>Beauveria bassiana</em>).</p>
-                        </div>
+                        <p class="text-sm text-stone-600 mb-3 leading-relaxed"><strong>Sintomas:</strong> Folhas prateadas e que secam prematuramente. A excreção açucarada atrai o fungo fuliginoso fumagina (fumaça preta). O maior perigo é a transmissão de viroses severas e incuráveis para a planta.</p>
+                        <p class="text-sm text-stone-600 leading-relaxed"><strong>Controle Recomendado:</strong> Fazer rotação com plantas não-hospedeiras. Instalação de armadilhas adesivas amarelas no perímetro e aplicação de fungos entomopatogênicos (como a <em>Beauveria bassiana</em>).</p>
                     </div>
                 </div>
-                <div class="card-soft bg-white flex flex-col shadow-sm">
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Brown_marmorated_stink_bug.jpg" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-6 md:p-8 flex-grow">
-                        <div class="flex flex-col sm:flex-row justify-between sm:items-center items-start mb-4 gap-2">
-                            <h4 class="font-black text-2xl text-stone-800">Percevejo Marrom</h4>
-                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-200 px-3 py-1 rounded-lg uppercase tracking-widest">Fase Enchimento</span>
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-black text-xl text-stone-800 leading-tight">Percevejo Marrom</h4>
+                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase tracking-widest">Fase Enchimento</span>
                         </div>
-                        <p class="text-sm text-stone-600 mb-4 leading-relaxed font-bold"><span class="text-red-600">Sintomas:</span> Ocorre na fase reprodutiva (R4 a R6 da soja). Atacam diretamente as vagens em formação, perfurando o grão. Causa abortamento, grãos chochos, manchados, e a "soja louca" (retenção foliar na colheita).</p>
-                        <div class="bg-stone-50 border border-stone-200 p-4 rounded-xl">
-                            <p class="text-sm text-stone-700 leading-relaxed"><strong>Controle Recomendado:</strong> Monitoramento rigoroso semanal utilizando o pano-de-batida. Pulverização tática imediata caso o limite de dano econômico seja atingido, focando primariamente nas bordaduras.</p>
-                        </div>
+                        <p class="text-sm text-stone-600 mb-3 leading-relaxed"><strong>Sintomas:</strong> Ocorre na fase reprodutiva (R4 a R6 da soja). Atacam diretamente as vagens em formação, perfurando o grão. Causa abortamento, grãos chochos, manchados, e a "soja louca" (retenção foliar e caule verde na colheita).</p>
+                        <p class="text-sm text-stone-600 leading-relaxed"><strong>Controle Recomendado:</strong> Monitoramento rigoroso semanal utilizando o pano-de-batida. Pulverização tática imediata caso o limite de dano econômico seja atingido, focando primariamente nas bordaduras.</p>
                     </div>
                 </div>
-                <div class="card-soft bg-white flex flex-col shadow-sm">
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
                     <img src="https://images.pexels.com/photos/15591077/pexels-photo-15591077.jpeg?auto=compress&cs=tinysrgb&w=300" class="img-praga" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-6 md:p-8 flex-grow">
-                        <div class="flex flex-col sm:flex-row justify-between sm:items-center items-start mb-4 gap-2">
-                            <h4 class="font-black text-2xl text-stone-800">Pulgão Verde</h4>
-                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-200 px-3 py-1 rounded-lg uppercase tracking-widest">Hortaliças / Trigo</span>
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-black text-xl text-stone-800 leading-tight">Pulgão Verde</h4>
+                            <span class="text-[10px] font-black bg-red-50 text-red-700 border border-red-100 px-2 py-0.5 rounded uppercase tracking-widest">Hortaliças / Trigo</span>
                         </div>
-                        <p class="text-sm text-stone-600 mb-4 leading-relaxed font-bold"><span class="text-red-600">Sintomas:</span> Sucção contínua de seiva das folhas mais macias, causando o definhamento rápido da planta, enrolamento dos brotos novos e forte atração de formigas na base da planta.</p>
-                        <div class="bg-stone-50 border border-stone-200 p-4 rounded-xl">
-                            <p class="text-sm text-stone-700 leading-relaxed"><strong>Controle Orgânico:</strong> Extremamente sensível a defensivos naturais. Uso de emulsão de Óleo de Neem ou caldas caseiras à base de sabão e fumo. É crucial não matar os predadores naturais (Joaninhas).</p>
-                        </div>
+                        <p class="text-sm text-stone-600 mb-3 leading-relaxed"><strong>Sintomas:</strong> Sucção contínua de seiva das folhas mais macias, causando o definhamento rápido da planta, enrolamento dos brotos novos e forte atração de formigas na base da planta.</p>
+                        <p class="text-sm text-stone-600 leading-relaxed"><strong>Controle Orgânico:</strong> Extremamente sensível a defensivos naturais. Uso de emulsão de Óleo de Neem ou caldas caseiras à base de sabão e fumo. É crucial não matar os predadores naturais (Joaninhas).</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="modalSolos" class="esconder fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
+    <div id="modalSolos" class="esconder fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6 modal-bg">
         <div class="bg-main rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col">
-            <div class="bg-orange-50 p-6 md:p-8 flex justify-between items-center border-b border-orange-100 rounded-t-3xl">
-                <h3 class="font-black text-2xl text-orange-900 flex items-center gap-3">📖 Galeria de Solos do Brasil</h3>
-                <button onclick="fecharJanela('modalSolos')" class="w-10 h-10 bg-orange-200 text-orange-800 hover:bg-orange-600 hover:text-white rounded-full font-bold flex items-center justify-center transition-colors text-xl">✕</button>
+            <div class="bg-orange-50 p-6 flex justify-between items-center border-b border-orange-100 rounded-t-3xl">
+                <h3 class="font-black text-xl text-orange-900 flex items-center gap-2">📖 Galeria de Solos</h3>
+                <button onclick="fecharJanela('modalSolos')" class="w-8 h-8 bg-orange-100 text-orange-700 hover:bg-orange-600 hover:text-white rounded-full font-bold flex items-center justify-center transition-colors">✕</button>
             </div>
             <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 overflow-y-auto">
-                <div class="card-soft bg-white flex flex-col shadow-sm">
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
                     <img src="https://images.pexels.com/photos/2804327/pexels-photo-2804327.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-6 md:p-8 flex-grow">
-                        <h4 class="font-black text-3xl text-stone-800 mb-4">Latossolo</h4>
-                        <p class="text-sm text-stone-600 leading-relaxed font-bold mb-4">Conhecido na prática como Terra Roxa ou Vermelha. É um solo maduro, muito profundo, bem drenado e altamente propício à mecanização pesada. Representa a espinha dorsal da agricultura comercial de grãos no Brasil (Cerrado e Sul).</p>
-                        <div class="bg-orange-50/50 border border-orange-100 p-5 rounded-2xl">
-                            <p class="text-sm text-stone-700 leading-relaxed"><strong>Estratégia de Manejo:</strong> Possui alta acidez natural (pH baixo) e altos níveis de Alumínio tóxico. Sua fundação produtiva exige OBRIGATORIAMENTE a <strong>calagem profunda (incorporação de calcário)</strong> e aplicação de gesso agrícola.</p>
-                        </div>
+                    <div class="p-6 flex-grow">
+                        <h4 class="font-black text-2xl text-stone-800 mb-3">Latossolo</h4>
+                        <p class="text-sm text-stone-600 leading-relaxed">Conhecido na prática como Terra Roxa ou Vermelha. É um solo maduro, muito profundo, bem drenado e altamente propício à mecanização pesada. Representa a espinha dorsal da agricultura comercial de grãos no Brasil (Cerrado e Sul).</p>
+                        <p class="text-sm text-stone-600 mt-3 leading-relaxed"><strong>Estratégia de Manejo:</strong> Possui alta acidez natural (pH baixo) e altos níveis de Alumínio tóxico. Sua fundação produtiva exige OBRIGATORIAMENTE a <strong>calagem profunda (incorporação de calcário)</strong> e aplicação de gesso agrícola.</p>
                     </div>
                 </div>
-                <div class="card-soft bg-white flex flex-col shadow-sm">
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
                     <img src="https://images.pexels.com/photos/1122408/pexels-photo-1122408.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-6 md:p-8 flex-grow">
-                        <h4 class="font-black text-3xl text-amber-800 mb-4">Solo Arenoso</h4>
-                        <p class="text-sm text-stone-600 leading-relaxed font-bold mb-4">Composto por mais de 70% de areia. Apresenta drenagem ultrarrápida, aquecimento excessivo na superfície da raiz e baixíssima capacidade de segurar nutrientes químicos (baixa CTC - Capacidade de Troca Catiônica).</p>
-                        <div class="bg-amber-50/50 border border-amber-100 p-5 rounded-2xl">
-                            <p class="text-sm text-stone-700 leading-relaxed"><strong>Estratégia de Manejo:</strong> A sustentabilidade e o lucro dependem integralmente do <strong>Sistema de Plantio Direto contínuo</strong>. É essencial criar uma grossa camada de palhada morta no chão para isolar termicamente e reter a pouca água disponível.</p>
-                        </div>
+                    <div class="p-6 flex-grow">
+                        <h4 class="font-black text-2xl text-amber-800 mb-3">Solo Arenoso</h4>
+                        <p class="text-sm text-stone-600 leading-relaxed">Composto por mais de 70% de areia. Apresenta drenagem ultrarrápida, aquecimento excessivo na superfície da raiz e baixíssima capacidade de segurar nutrientes químicos (baixa CTC - Capacidade de Troca Catiônica).</p>
+                        <p class="text-sm text-stone-600 mt-3 leading-relaxed"><strong>Estratégia de Manejo:</strong> A sustentabilidade e o lucro dependem integralmente do <strong>Sistema de Plantio Direto contínuo</strong>. É essencial criar uma grossa camada de palhada morta no chão para isolar termicamente e reter a pouca água disponível.</p>
                     </div>
                 </div>
-                <div class="card-soft bg-white flex flex-col shadow-sm">
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
                     <img src="https://images.pexels.com/photos/60013/desert-drought-dehydrated-clay-soil-60013.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-6 md:p-8 flex-grow">
-                        <h4 class="font-black text-3xl text-stone-800 mb-4">Solo Argiloso</h4>
-                        <p class="text-sm text-stone-600 leading-relaxed font-bold mb-4">Solo pesado e pegajoso (conhecido pelos produtores como barrento). É um solo riquíssimo, com excelente capacidade de segurar nutrientes (alta CTC) e segurar a umidade devido aos seus milhões de microporos microscópicos.</p>
-                        <div class="bg-stone-50 border border-stone-200 p-5 rounded-2xl">
-                            <p class="text-sm text-stone-700 leading-relaxed"><strong>Estratégia de Manejo:</strong> O grande vilão de quem planta em argila é o maquinário em dias inadequados. A passagem de tratores e colheitadeiras sobre a argila úmida causa <strong>compactação severa (o temido pé-de-grade)</strong>, asfixiando totalmente as raízes. Exige escarificação ocasional.</p>
-                        </div>
+                    <div class="p-6 flex-grow">
+                        <h4 class="font-black text-2xl text-stone-800 mb-3">Solo Argiloso</h4>
+                        <p class="text-sm text-stone-600 leading-relaxed">Solo pesado e pegajoso (conhecido pelos produtores como barrento). É um solo riquíssimo, com excelente capacidade de segurar nutrientes (alta CTC) e segurar a umidade devido aos seus milhões de microporos microscópicos.</p>
+                        <p class="text-sm text-stone-600 mt-3 leading-relaxed"><strong>Estratégia de Manejo:</strong> O grande vilão de quem planta em argila é o maquinário em dias inadequados. A passagem de tratores e colheitadeiras sobre a argila úmida causa <strong>compactação severa (o temido pé-de-grade)</strong>, asfixiando totalmente as raízes das culturas seguintes.</p>
                     </div>
                 </div>
-                <div class="card-soft bg-white flex flex-col shadow-sm">
+                <div class="card-soft overflow-hidden bg-white flex flex-col">
                     <img src="https://images.pexels.com/photos/235731/pexels-photo-235731.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-solo" referrerpolicy="no-referrer" crossorigin="anonymous">
-                    <div class="p-6 md:p-8 flex-grow">
-                        <h4 class="font-black text-3xl text-blue-900 mb-4">Gleissolo</h4>
-                        <p class="text-sm text-stone-600 leading-relaxed font-bold mb-4">Solos formados exclusivamente em várzeas e planícies de inundação. São escuros e riquíssimos em matéria orgânica não decomposta, acumulada devido ao ambiente que está constantemente saturado por água (ambiente sem oxigênio).</p>
-                        <div class="bg-blue-50/50 border border-blue-100 p-5 rounded-2xl">
-                            <p class="text-sm text-stone-700 leading-relaxed"><strong>Estratégia de Manejo:</strong> É o solo absolutamente perfeito para a orizicultura (Arroz Irrigado por inundação). Para tentar adaptá-lo artificialmente a outras culturas de sequeiro (Soja/Milho), é mandatório o investimento pesado em <strong>sistemas profundos de drenagem de valas</strong>.</p>
-                        </div>
+                    <div class="p-6 flex-grow">
+                        <h4 class="font-black text-2xl text-blue-900 mb-3">Gleissolo</h4>
+                        <p class="text-sm text-stone-600 leading-relaxed">Solos formados exclusivamente em várzeas e planícies de inundação. São escuros e riquíssimos em matéria orgânica não decomposta, acumulada devido ao ambiente que está constantemente saturado por água (ambiente sem oxigênio).</p>
+                        <p class="text-sm text-stone-600 mt-3 leading-relaxed"><strong>Estratégia de Manejo:</strong> É o solo absolutamente perfeito para a orizicultura (Arroz Irrigado por inundação). Para tentar adaptá-lo artificialmente a outras culturas de sequeiro (como tentar plantar Soja em várzea), é mandatório o investimento pesado em <strong>sistemas profundos de drenagem de valas</strong>.</p>
                     </div>
                 </div>
             </div>
@@ -542,7 +457,7 @@
         const DB_CULTURAS = {
             'Milho': { 
                 ciclo: 120, variacao: '90 a 150 dias', semQtd: 20, colhQtd: 6000, tipo: 'grao', mesesIdeais: [9,10,11,12,1,2,3], unidade: 'Kg',
-                fases: "<li><strong>0 a 15 dias:</strong> Germinação e Emergência (Cuidado extremo com pragas de solo).</li><li><strong>16 a 55 dias:</strong> Desenvolvimento Vegetativo. Época ideal da adubação nitrogenada de cobertura.</li><li><strong>56 a 75 dias:</strong> Florescimento (Pendoamento). Pico de exigência hídrica! Sem água aqui, perda total.</li><li><strong>76 a 120 dias:</strong> Enchimento do grão, secagem natural e colheita.</li>"
+                fases: "<li><strong>0 a 15 dias:</strong> Germinação e Emergência (Cuidado extremo com pragas de solo).</li><li><strong>16 a 55 dias:</strong> Desenvolvimento Vegetativo. Época ideal da adubação nitrogenada de cobertura.</li><li><strong>56 a 75 dias:</strong> Florescimento (Pendoamento). Pico de exigência hídrica!</li><li><strong>76 a 120 dias:</strong> Enchimento do grão, secagem natural e colheita.</li>"
             },
             'Soja': { 
                 ciclo: 120, variacao: '110 a 140 dias', semQtd: 60, colhQtd: 3200, tipo: 'grao', mesesIdeais: [10,11,12], unidade: 'Kg',
@@ -556,21 +471,13 @@
                 ciclo: 120, variacao: '110 a 140 dias', semQtd: 140, colhQtd: 2800, tipo: 'grao', mesesIdeais: [3,4,5], unidade: 'Kg',
                 fases: "<li><strong>0 a 15 dias:</strong> Germinação de inverno.</li><li><strong>16 a 60 dias:</strong> Perfilhamento (quando a planta 'fecha' a linha). Exige nitrogênio pesado.</li><li><strong>61 a 80 dias:</strong> Alongamento do colmo e Espigamento.</li><li><strong>81 a 120 dias:</strong> Maturação, transição de grão leitoso para duro (ponto de trilha da colheitadeira).</li>"
             },
-            'Arroz': { 
-                ciclo: 140, variacao: '130 a 160 dias', semQtd: 80, colhQtd: 6000, tipo: 'grao', mesesIdeais: [9,10,11,12], unidade: 'Kg', 
-                fases: "<li><strong>0 a 20 dias:</strong> Estabelecimento inicial.</li><li><strong>21 a 70 dias:</strong> Perfilhamento e manutenção do espelho d'água.</li><li><strong>71 a 100 dias:</strong> Diferenciação e Emissão da Panícula.</li><li><strong>101 a 140 dias:</strong> Granação e drenagem do talhão para colheita.</li>" 
-            },
-            'Alface': { 
-                ciclo: 60, variacao: '50 a 70 dias', semQtd: 1, colhQtd: 25000, tipo: 'hortalica', mesesIdeais: [1,2,3,4,5,6,7,8,9,10,11,12], unidade: 'Kg', 
-                fases: "<li><strong>0 a 15 dias:</strong> Sementeira em estufa (muda sensível).</li><li><strong>16 a 45 dias:</strong> Desenvolvimento de base foliar larga.</li><li><strong>46 a 60 dias:</strong> Colheita verde antes do início do amargor natural.</li>" 
-            },
-            'Batata': { 
-                ciclo: 100, variacao: '90 a 120 dias', semQtd: 2500, colhQtd: 30000, tipo: 'raiz', mesesIdeais: [4,5,6,7], unidade: 'Kg', 
-                fases: "<li><strong>0 a 20 dias:</strong> Quebra da dormência e brotação da semente.</li><li><strong>21 a 60 dias:</strong> Crescimento exuberante das ramas aéreas.</li><li><strong>61 a 100 dias:</strong> Tuberização profunda. Equilíbrio de rega para não apodrecer.</li>" 
-            },
+            'Arroz': { ciclo: 140, variacao: '130 a 160 dias', semQtd: 80, colhQtd: 6000, tipo: 'grao', mesesIdeais: [9,10,11,12], unidade: 'Kg', fases: "<li><strong>0 a 20 dias:</strong> Estabelecimento.</li><li><strong>21 a 70 dias:</strong> Perfilhamento e manutenção do espelho d'água.</li><li><strong>71 a 100 dias:</strong> Emissão da Panícula.</li><li><strong>101 a 140 dias:</strong> Granação e drenagem do talhão para colheita seca.</li>" },
+            'Alface': { ciclo: 60, variacao: '50 a 70 dias', semQtd: 1, colhQtd: 25000, tipo: 'hortalica', mesesIdeais: [1,2,3,4,5,6,7,8,9,10,11,12], unidade: 'Kg', fases: "<li><strong>0 a 15 dias:</strong> Sementeira em estufa (muda sensível).</li><li><strong>16 a 45 dias:</strong> Desenvolvimento de base foliar larga.</li><li><strong>46 a 60 dias:</strong> Colheita verde antes do início do amargor.</li>" },
+            'Batata': { ciclo: 100, variacao: '90 a 120 dias', semQtd: 2500, colhQtd: 30000, tipo: 'raiz', mesesIdeais: [4,5,6,7], unidade: 'Kg', fases: "<li><strong>0 a 20 dias:</strong> Quebra da dormência e brotação.</li><li><strong>21 a 60 dias:</strong> Crescimento exuberante das ramas aéreas.</li><li><strong>61 a 100 dias:</strong> Tuberização profunda. Equilíbrio de rega para não apodrecer os tubérculos.</li>" },
+            /* Grama tratada corretamente como M2 e com Fases Corretas */
             'Grama': { 
                 ciclo: 90, variacao: '60 a 90 dias', semQtd: 10000, colhQtd: 10000, tipo: 'perene', mesesIdeais: [9,10,11,12,1,2,3], unidade: 'm²',
-                fases: "<li><strong>0 a 25 dias:</strong> Pegamento dos tapetes recém desenrolados. Fase de extrema necessidade hídrica diária para o enraizamento não queimar.</li><li><strong>26 a 60 dias:</strong> Expansão lateral dos estolões. As junções entre as placas começam a 'costurar' e fecham o solo nu.</li><li><strong>61 a 90 dias:</strong> Fixação plena, coloração intensa restabelecida e liberação para a primeira poda leve.</li>"
+                fases: "<li><strong>0 a 25 dias:</strong> Pegamento dos tapetes recém desenrolados. Fase de extrema necessidade hídrica diária para o enraizamento não queimar ao sol.</li><li><strong>26 a 60 dias:</strong> Emissão horizontal de estolões foliares. As junções entre as placas começam a fechar, ocultando a terra.</li><li><strong>61 a 90 dias:</strong> Fixação plena, coloração intensa restabelecida e liberação para a primeira poda ou tráfego leve.</li>"
             }
         };
 
@@ -592,11 +499,10 @@
             if(!culturaNome || !DB_CULTURAS[culturaNome]) { box.classList.add('esconder'); return; }
 
             titulo.innerText = culturaNome;
-            lista.innerHTML = DB_CULTURAS[culturaNome].fases || "<li>Dados fenológicos não encontrados.</li>";
+            lista.innerHTML = DB_CULTURAS[culturaNome].fases;
             box.classList.remove('esconder');
         }
 
-        // Sistema de Impressão PDF
         function imprimirRelatorio(idContainer, titulo) {
             const conteudo = document.getElementById(idContainer).innerHTML;
             const dataAtual = new Date().toLocaleString('pt-BR');
@@ -611,6 +517,7 @@
             janela.focus();
             setTimeout(() => { janela.print(); janela.close(); }, 800);
         }
+
         function imprimirDocumento(id, title) { imprimirRelatorio(id, title); }
 
         function popularDropdownsCultura() {
@@ -674,7 +581,6 @@
             } catch(e) { return null; } 
         }
 
-        // GESTÃO DE SISTEMA E LOGINS
         function alternarTelaLogin(mostraCadastro) {
             document.getElementById('formEntrada').classList.toggle('esconder', mostraCadastro);
             document.getElementById('formCadastro').classList.toggle('esconder', !mostraCadastro);
@@ -706,7 +612,6 @@
         function abrirJanela(id) { document.getElementById(id).classList.remove('esconder'); if(id === 'modalPerfil') injetarDadosNoFormularioPerfil(); }
         function fecharJanela(id) { document.getElementById(id).classList.add('esconder'); }
 
-        // PERFIL
         function injetarDadosNoFormularioPerfil() {
             if(!localStorage.getItem('sysPerfil')) return;
             const bp = JSON.parse(localStorage.getItem('sysPerfil'));
@@ -762,7 +667,7 @@
 
                 if(temp >= 30) {
                     document.getElementById('boxAlertaClima').classList.remove('esconder');
-                    document.getElementById('txtAlertaClima').innerHTML = `Radar aponta calor extremo de <strong>${temp}°C em ${cid}</strong>. Taxa de evapotranspiração crítica atingida. As diretrizes de rega das suas lavouras ativas foram recalculadas para evitar cozimento de raiz.`;
+                    document.getElementById('txtAlertaClima').innerHTML = `Atenção: Radar aponta <strong>${temp}°C em ${cid}</strong>. Taxa de evapotranspiração crítica ativada. O sistema sugerirá ajustes hídricos na sua lavoura.`;
                 } else {
                     document.getElementById('boxAlertaClima').classList.add('esconder');
                 }
@@ -771,7 +676,6 @@
             }
         }
 
-        // PLANEJAMENTO AGRONÔMICO
         function gerarPlanejamento(e) {
             e.preventDefault();
             const crtCul = document.getElementById('planCultura').value;
@@ -790,34 +694,34 @@
             const epocaIdeal = dbRef.mesesIdeais.includes(dtInicio.getMonth() + 1);
 
             let htmlAlerta = epocaIdeal 
-                ? `<div class="bg-emerald-50/80 border-2 border-emerald-200 text-emerald-800 p-4 rounded-xl mt-5 text-sm font-bold shadow-sm">✅ ANÁLISE APROVADA: O Mês selecionado confere perfeitamente com a janela climática ideal para o crescimento desta cultura na região Sudeste.</div>`
-                : `<div class="bg-red-50 border-2 border-red-200 text-red-800 p-4 rounded-xl mt-5 text-sm font-bold shadow-sm">⚠️ RISCO CLIMÁTICO ALTO: Este mês histórico não é indicado agronomicamente para o plantio desta semente na região Sudeste. Risco severo de quebra de safra ou perdas por estresse/geada.</div>`;
+                ? `<div class="bg-emerald-50/70 border border-emerald-200 text-emerald-800 p-4 rounded-xl mt-5 text-[13px] font-bold shadow-sm">✅ APROVADO: O Mês selecionado confere perfeitamente com a janela climática ideal para esta cultura na região Sudeste.</div>`
+                : `<div class="bg-red-50 border border-red-200 text-red-800 p-4 rounded-xl mt-5 text-[13px] font-bold shadow-sm">⚠️ RISCO CLIMÁTICO ALTO: Este mês histórico não é indicado agronomicamente para o plantio desta semente na região Sudeste. Sujeito à perdas.</div>`;
 
-            let proto = `<li class="mb-3"><strong>1. Análise Físico/Química:</strong> Retirar amostras do solo (0-20cm de profundidade) em zigue-zague para laudo laboratorial. Antecedência de 60 dias.</li>`;
-            if(crtSol === "Latossolo") proto += `<li class="mb-3"><strong>2. Correção de Base:</strong> Latossolos são ácidos. Requerem calcário dolomítico com antecedência de 90 dias para neutralizar acidez e disponibilizar magnésio.</li>`;
-            if(crtSol === "Argiloso") proto += `<li class="mb-3"><strong>2. Manejo Físico:</strong> Solos argilosos compactam muito facilmente. Verifique a necessidade urgente de uma operação de escarificação se a terra sofreu pisoteio.</li>`;
-            if(crtSol === "Arenoso") proto += `<li class="mb-3"><strong>2. Manejo Biológico:</strong> Solos de areia evaporam água absurdamente rápido. É absolutamente OBRIGATÓRIO adotar o Plantio Direto (manter palhada morta no chão cobrindo a terra).</li>`;
-            if(crtSol === "Gleissolo") proto += `<li class="mb-3"><strong>2. Gestão Hídrica de Várzea:</strong> Áreas úmidas demandam a construção prévia de drenos profundos eficientes.</li>`;
+            let proto = `<li class="mb-2"><strong>1. Análise Físico/Química:</strong> Retirar amostras do solo (0-20cm de profundidade) para laudo laboratorial com 60 dias de antecedência.</li>`;
+            if(crtSol === "Latossolo") proto += `<li class="mb-2"><strong>2. Correção de Base:</strong> Latossolos requerem calcário dolomítico 90 dias antes para neutralizar acidez e disponibilizar magnésio.</li>`;
+            if(crtSol === "Argiloso") proto += `<li class="mb-2"><strong>2. Manejo Físico:</strong> Solos pesados compactam facilmente. Verifique a necessidade urgente de uma operação de escarificação.</li>`;
+            if(crtSol === "Arenoso") proto += `<li class="mb-2"><strong>2. Manejo Biológico:</strong> Solos de areia evaporam água rápido. É absolutamente OBRIGATÓRIO adotar o Plantio Direto (manter palhada seca no chão).</li>`;
+            if(crtSol === "Gleissolo") proto += `<li class="mb-2"><strong>2. Gestão Hídrica:</strong> Áreas de várzea demandam a construção prévia de dutos de drenagem eficientes.</li>`;
             
-            proto += `<li class="mb-3"><strong>3. Dessecação do Terreno:</strong> Aplicação de herbicida sistêmico pré-plantio cerca de 15 dias antes da data estipulada para a semeadura.</li>`;
-            proto += `<li class="mb-4"><strong>4. Adubação de Arranque:</strong> Configurar precisamente a máquina semeadeira para depositar a fonte de Fósforo (P) direto no sulco, um pouco abaixo ou ao lado da semente.</li>`;
+            proto += `<li class="mb-2"><strong>3. Dessecação do Terreno:</strong> Aplicação de herbicida sistêmico cerca de 15 dias antes da data estipulada: ${crtDat.split('-').reverse().join('/')}.</li>`;
+            proto += `<li class="mb-4"><strong>4. Adubação de Arranque:</strong> Configurar a máquina semeadeira para depositar fonte de Fósforo direto no sulco, um pouco abaixo da semente.</li>`;
             
             // Fases Dinâmicas da Cultura Escritas no PDF
-            proto += `<li class="mt-4 pt-4 border-t border-stone-200 text-blue-800"><strong>Estádios Estimados do Ciclo:</strong><ul class="list-disc pl-6 mt-3 space-y-2 text-stone-600 font-normal">${dbRef.fases}</ul></li>`;
+            proto += `<li class="mt-4 pt-4 border-t border-stone-200 text-blue-800"><strong>Estádios Estimados do Ciclo (Para esta Cultura):</strong><ul class="list-disc pl-6 mt-3 space-y-2 text-stone-600 font-normal">${dbRef.fases}</ul></li>`;
 
             document.getElementById('planResSemente').innerHTML = `
-                <div class="flex justify-between items-center mb-4 pb-4 border-b-2 border-stone-100">
-                    <span class="text-sm font-black text-stone-500 uppercase tracking-widest">Demanda de Insumos Calculada:</span> 
-                    <span class="text-3xl font-black text-stone-800">${necGeral.toLocaleString('pt-BR')} <span class="text-lg text-stone-500">${unid}</span></span>
+                <div class="flex justify-between items-center mb-4 pb-4 border-b border-stone-100">
+                    <span class="text-sm font-black text-stone-500 uppercase tracking-widest">Demanda de Insumo Calculada:</span> 
+                    <span class="text-2xl font-black text-stone-800">${necGeral.toLocaleString('pt-BR')} <span class="text-lg text-stone-500">${unid}</span></span>
                 </div>
                 <div class="flex justify-between items-center">
                     <div class="flex flex-col">
                         <span class="text-sm font-black text-stone-500 uppercase tracking-widest">Colheita Final Prevista</span>
-                        <span class="text-[10px] font-black bg-blue-100 text-blue-800 px-3 py-1.5 rounded-lg mt-2 w-max border border-blue-200">CÁLCULO MÉDIO DE CICLO: ${dbRef.ciclo} DIAS</span>
+                        <span class="text-[10px] font-black bg-blue-100 text-blue-800 px-3 py-1 rounded-lg mt-2 w-max border border-blue-200">MÉDIA DE CICLO BASE: ${dbRef.ciclo} DIAS</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-blue-700 block text-4xl font-black leading-none">${dtColheita.toLocaleDateString('pt-BR')}</span>
-                        <span class="text-[10px] text-stone-500 font-bold uppercase tracking-widest block mt-2">*Variação Histórica: ${dbRef.variacao}</span>
+                        <span class="text-blue-700 block text-3xl font-black leading-none">${dtColheita.toLocaleDateString('pt-BR')}</span>
+                        <span class="text-[11px] text-stone-500 font-bold uppercase tracking-widest block mt-1.5">*Var Climática: ${dbRef.variacao}</span>
                     </div>
                 </div>
                 ${htmlAlerta}
@@ -843,23 +747,23 @@
             let db = JSON.parse(localStorage.getItem('sysPlanos')) || [];
             malha.innerHTML = '';
             
-            if(db.length === 0) { malha.innerHTML = "<p class='col-span-full text-sm text-stone-400 font-bold p-6 bg-white rounded-2xl border border-stone-200 shadow-sm'>Nenhum cronograma de intenção salvo na agenda no momento.</p>"; return; }
+            if(db.length === 0) { malha.innerHTML = "<p class='col-span-full text-sm text-stone-400 font-bold p-6 bg-white rounded-2xl border border-stone-100 shadow-sm'>Nenhum cronograma de intenção salvo na agenda.</p>"; return; }
             
             db.forEach(p => {
                 malha.innerHTML += `
                     <div class="card-soft p-6 relative group bg-white flex flex-col justify-between">
-                        <button onclick="apagarPlano(${p.id})" class="absolute top-4 right-4 w-8 h-8 bg-stone-100 text-stone-400 hover:bg-red-500 hover:text-white rounded-full flex items-center justify-center text-xs font-bold transition-colors">✕</button>
+                        <button onclick="apagarPlano(${p.id})" class="absolute top-4 right-4 w-7 h-7 bg-stone-100 text-stone-400 hover:bg-red-500 hover:text-white rounded-full flex items-center justify-center text-xs font-bold transition-colors">✕</button>
                         <div>
                             <h4 class="font-black text-blue-900 text-xl">${p.cultura}</h4>
-                            <p class="text-[10px] font-black bg-stone-100 px-3 py-1 rounded-lg text-stone-500 my-3 inline-block tracking-widest uppercase">${p.area} Hectares Projetados</p>
+                            <p class="text-[10px] font-black bg-stone-100 px-3 py-1 rounded text-stone-500 my-3 inline-block tracking-widest uppercase">${p.area} Hectares</p>
                         </div>
-                        <div class="space-y-3 border-t-2 border-stone-100 pt-4 mt-2">
-                            <div class="flex justify-between items-center"><span class="text-[11px] font-bold text-stone-400 uppercase tracking-widest">Início de Plantio:</span> <span class="text-sm font-black text-stone-700">${p.dataStr.split('-').reverse().join('/')}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-[11px] font-bold text-stone-400 uppercase tracking-widest">Demanda (Insumo):</span> <span class="text-sm font-black text-emerald-600">${p.sementesVol.toLocaleString('pt-BR')} ${p.unidade || 'Kg'}</span></div>
+                        <div class="space-y-3 border-t border-stone-100 pt-4 mt-2">
+                            <div class="flex justify-between items-center"><span class="text-xs font-bold text-stone-400 uppercase tracking-widest">Início:</span> <span class="text-sm font-black text-stone-700">${p.dataStr.split('-').reverse().join('/')}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-xs font-bold text-stone-400 uppercase tracking-widest">Demanda:</span> <span class="text-sm font-black text-emerald-600">${p.sementesVol.toLocaleString('pt-BR')} ${p.unidade || 'Kg'}</span></div>
                             <div class="flex justify-between items-end border-t border-stone-50 pt-3 mt-3">
-                                <span class="text-[11px] font-bold text-blue-500 uppercase tracking-widest">Colheita Final <br>(Cálculo Médio):</span> 
+                                <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Colheita (Média Base):</span> 
                                 <div class="text-right">
-                                    <span class="text-2xl font-black text-blue-700 leading-none block mb-1">${p.colheitaEstimada}</span>
+                                    <span class="text-lg font-black text-blue-700 leading-none block mb-0.5">${p.colheitaEstimada}</span>
                                     <p class="text-[9px] text-stone-400 uppercase font-bold tracking-wider">${p.variacao || ''}</p>
                                 </div>
                             </div>
@@ -874,7 +778,6 @@
             carregarGridPlanos();
         }
 
-        // PLANTIO E MONITORAMENTO ATIVO
         function salvarNovaLavoura(e) {
             e.preventDefault();
             const c = document.getElementById('plCultura').value;
@@ -905,7 +808,7 @@
             const grid = document.getElementById('gridLavouras');
             let db = JSON.parse(localStorage.getItem('sysLavouras')) || [];
             
-            if(db.length === 0) { grid.innerHTML = '<div class="col-span-full border-2 border-stone-200 bg-white border-dashed rounded-[2rem] p-12 text-center shadow-sm"><p class="text-stone-400 font-black text-xl mb-2">Painel de Monitoramento Vazio</p><p class="text-stone-400 text-sm">Abra uma [Nova Lavoura] para acompanhar o ciclo de desenvolvimento e o clima diário de forma inteligente.</p></div>'; return; }
+            if(db.length === 0) { grid.innerHTML = '<div class="col-span-full border border-stone-200 bg-white border-dashed rounded-[2rem] p-12 text-center shadow-sm"><p class="text-stone-400 font-black text-xl mb-2">Monitoramento Zerado</p><p class="text-stone-400 text-sm">Abra uma [Nova Lavoura] para acompanhar o ciclo e o clima diário de forma inteligente.</p></div>'; return; }
 
             grid.innerHTML = '';
             db.forEach(l => {
@@ -913,45 +816,44 @@
                 const dc = l.dataColheitaStr.split('-').reverse().join('/');
                 const cB = l.cicloBase || (DB_CULTURAS[l.cultura] ? DB_CULTURAS[l.cultura].ciclo : '--');
 
-                // INFO DOS CICLOS EXPLICITADOS AQUI
                 grid.innerHTML += `
                     <div class="card-soft overflow-hidden flex flex-col bg-white">
-                        <div class="bg-emerald-50/80 border-b border-emerald-100 p-6 flex justify-between items-start">
+                        <div class="bg-emerald-50/60 border-b border-emerald-100 p-6 flex justify-between items-start">
                             <div>
-                                <h3 class="font-black text-2xl text-emerald-900 mb-1.5">${l.cultura}</h3>
-                                <p class="text-[10px] font-black text-emerald-700 uppercase tracking-widest bg-white border border-emerald-200 px-3 py-1 rounded-lg inline-block shadow-sm">Talhão Fechado: ${l.area} Ha</p>
+                                <h3 class="font-black text-2xl text-emerald-900 mb-1">${l.cultura}</h3>
+                                <p class="text-[10px] font-black text-emerald-700 uppercase tracking-widest bg-white border border-emerald-200 px-3 py-1 rounded-full inline-block shadow-sm">Talhão: ${l.area} Ha</p>
                             </div>
-                            <button onclick="deletarLavouraAtiva(${l.id})" class="text-stone-400 hover:bg-red-500 hover:text-white w-10 h-10 rounded-full text-base font-black transition-colors flex items-center justify-center">✕</button>
+                            <button onclick="deletarLavouraAtiva(${l.id})" class="text-stone-400 hover:bg-red-500 hover:text-white w-9 h-9 rounded-full text-base font-black transition-colors flex items-center justify-center">✕</button>
                         </div>
                         
-                        <div class="p-6 flex-grow flex flex-col gap-6">
-                            <div class="flex justify-between items-center pb-4 border-b-2 border-stone-100">
+                        <div class="p-6 flex-grow flex flex-col gap-5">
+                            <div class="flex justify-between items-center pb-3 border-b border-stone-100">
                                 <div>
                                     <p class="text-[10px] text-stone-400 font-black uppercase tracking-widest">Estádio Fisiológico Atual</p>
-                                    <p class="font-black text-stone-800 text-lg mt-1.5 leading-tight">${ia.fasePlanta}</p>
-                                    <p class="text-[11px] font-bold text-stone-500 mt-2 bg-stone-100 px-3 py-1.5 rounded-lg w-max shadow-sm border border-stone-200">Progresso: Dia ${ia.diaDoCiclo} de ${cB} (Média)</p>
+                                    <p class="font-black text-stone-800 text-base mt-1.5 leading-tight">${ia.fasePlanta}</p>
+                                    <p class="text-[11px] font-bold text-stone-500 mt-1.5 bg-stone-100 px-2.5 py-0.5 rounded-lg w-max">Dia ${ia.diaDoCiclo} do Ciclo Total (${cB} Médio)</p>
                                 </div>
                                 <div class="text-right pl-4">
-                                    <p class="text-[10px] text-blue-500 font-black uppercase tracking-widest">Data de Colheita <br>(Projeção Média)</p>
-                                    <p class="font-black text-blue-600 text-3xl mt-1.5 leading-none">${dc}</p>
+                                    <p class="text-[10px] text-blue-500 font-black uppercase tracking-widest">Colheita (Média)</p>
+                                    <p class="font-black text-blue-600 text-2xl mt-1.5 leading-none">${dc}</p>
                                     <p class="text-[9px] text-stone-400 font-bold uppercase mt-2 tracking-wider">Var: ${l.variacaoTxt || 'N/D'}</p>
                                 </div>
                             </div>
                             
-                            <div class="bg-emerald-50/50 rounded-2xl p-5 border border-emerald-100 shadow-sm">
+                            <div class="bg-emerald-50/40 rounded-2xl p-5 border border-emerald-100 shadow-sm">
                                 <div class="text-xs text-stone-700 space-y-4">
-                                    <p class="leading-relaxed text-[13px]"><strong class="text-blue-800 bg-blue-100 px-1.5 py-0.5 rounded-md mr-1 shadow-sm">💧 Rega Hoje:</strong> ${ia.txtAgua}</p>
-                                    <p class="leading-relaxed text-[13px]"><strong class="text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded-md mr-1 shadow-sm">🧪 Adubo Foco:</strong> ${ia.txtAdubo}</p>
+                                    <p class="leading-relaxed"><strong class="text-blue-800 bg-blue-100 px-1.5 py-0.5 rounded mr-1">💧 Rega:</strong> ${ia.txtAgua}</p>
+                                    <p class="leading-relaxed"><strong class="text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded mr-1">🧪 Adubo:</strong> ${ia.txtAdubo}</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="border-t border-stone-100 p-5 flex justify-between items-center bg-stone-50/50">
                             <div>
-                                <p class="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Estimativa Base Final</p>
-                                <p class="text-2xl font-black text-emerald-700 leading-none mt-1">${parseFloat(l.kgColheita).toLocaleString('pt-BR')} <span class="text-sm text-stone-500">${l.unidade}</span></p>
+                                <p class="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Volume Estimativa Base</p>
+                                <p class="text-xl font-black text-emerald-700 leading-none mt-1">${parseFloat(l.kgColheita).toLocaleString('pt-BR')} <span class="text-sm text-stone-500">${l.unidade}</span></p>
                             </div>
-                            <button onclick="abrirModuloFinanceiroDRE(${l.id})" class="bg-white border-2 border-stone-200 text-stone-700 text-xs uppercase tracking-widest font-black px-6 py-3.5 rounded-xl shadow-sm hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-800 active:scale-[0.98] transition-all">Lançar DRE 💰</button>
+                            <button onclick="abrirModuloFinanceiroDRE(${l.id})" class="bg-white border border-stone-200 text-stone-700 text-[11px] uppercase tracking-widest font-black px-5 py-3 rounded-xl shadow-sm hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 active:scale-95 transition-all">Lançar DRE 💰</button>
                         </div>
                     </div>
                 `;
@@ -976,21 +878,21 @@
             let etapa = "Desenvolvimento Rápido";
             
             if (dadosLavoura.cultura.includes('Grama')) {
-                if (idadeEmDias <= 25) etapa = "Fase de Enraizamento dos Tapetes (Muda)";
-                else if (idadeEmDias < 70) etapa = "Expansão Foliar e Costura do Solo";
-                else etapa = "Estabelecimento Pleno (Pronta para o Corte Mecânico)";
+                if (idadeEmDias <= 25) etapa = "Enraizamento dos Tapetes (Muda)";
+                else if (idadeEmDias < 70) etapa = "Expansão Foliar / Fechamento do Solo";
+                else etapa = "Estabelecimento Pleno (Pronta para o Corte)";
             } else {
-                if(idadeEmDias < (cicloOficial * 0.15)) etapa = "Fase Inicial Frágil (Germinação/Emergência)";
-                else if(idadeEmDias > (cicloOficial * 0.85)) etapa = "Fase de Secagem e Maturação Final";
-                else if(idadeEmDias > (cicloOficial * 0.40)) etapa = "Fase Reprodutiva Crítica (Enchimento/Vagens)";
-                else etapa = "Crescimento Vegetativo Pesado (Fechamento de Linha)";
+                if(idadeEmDias < (cicloOficial * 0.15)) etapa = "Fase Inicial (Germinação e Emergência)";
+                else if(idadeEmDias > (cicloOficial * 0.85)) etapa = "Secagem e Maturação Final";
+                else if(idadeEmDias > (cicloOficial * 0.40)) etapa = "Fase Reprodutiva Crítica (Flores/Vagens)";
+                else etapa = "Crescimento Vegetativo (Fechamento de Linha)";
             }
 
             let milimetros = 0; let avisoRega = ""; let avisoAdubo = "";
             let tempAgro = window.temperaturaRadarGlobal || 25; 
 
             if(etapa.includes("Maturação") && tipoCultura !== 'perene') {
-                avisoRega = "<span class='text-red-600 font-black'>Corte hídrico total recomendado.</span> A cultura já atingiu a maturação biológica. Muita umidade nesta fase final vai apodrecer o grão ou proliferar fungos de fim de ciclo.";
+                avisoRega = "<span class='text-red-600 font-black'>CORTE DE ÁGUA ACONSELHADO.</span> Cultura atingiu a maturação. Muita umidade nesta fase pode apodrecer o grão ou proliferar fungos de final de ciclo.";
             } else {
                 if(etapa.includes("Inicial") || etapa.includes("Enraizamento")) milimetros = 3;
                 else if(etapa.includes("Crescimento") || etapa.includes("Expansão")) milimetros = 5;
@@ -1000,26 +902,26 @@
                 if(tempAgro >= 30) {
                     milimetros += 3; 
                     if(dadosLavoura.solo.includes("Arenoso")) {
-                        avisoRega = `Temperatura Extrema registrada localmente (${tempAgro}°C). <strong>CUIDADO COM SOLO ARENOSO:</strong> Você deve fornecer ${milimetros}mm diários estritamente divididos em <strong>turnos muito curtos</strong> (Madrugada e Fim de Noite) para evitar a fervura total da raiz fina.`;
+                        avisoRega = `Temperatura Extrema (${tempAgro}°C). <strong>Solo Arenoso:</strong> Fornecer ${milimetros}mm diários divididos em <strong>turnos curtos</strong> (Madrugada e Noite) para evitar fervura da raiz fina.`;
                     } else {
-                        avisoRega = `Calor de ${tempAgro}°C ativou taxa evapotranspiratória extra. A Lâmina ideal subiu para ${milimetros}mm. O solo argiloso deve ser mantido sempre úmido agora para não rachar (fender) e arrebentar o sistema radicular secundário da sua cultura.`;
+                        avisoRega = `Calor de ${tempAgro}°C ativou taxa extra. Lâmina ideal de ${milimetros}mm. Solo argiloso deve ser mantido sempre úmido para não rachar e arrebentar raízes.`;
                     }
                 } else {
-                    avisoRega = `Temperatura amena e estável (${tempAgro}°C). Uma lâmina hídrica basal de ${milimetros} mm/dia manterá a turgidez vegetal operando perfeitamente a 100%.`;
+                    avisoRega = `Temperatura amena (${tempAgro}°C). Lâmina hídrica basal de ${milimetros} mm/dia mantém a turgidez vegetal perfeitamente.`;
                 }
             }
 
             if(etapa.includes("Maturação") && tipoCultura !== 'perene') {
-                avisoAdubo = "Sistema vascular vegetal já está trancado. Seu foco agora é total na limpeza mecânica, manutenção final das colheitadeiras e nos silos de armazenagem.";
+                avisoAdubo = "Sistema vascular vegetal fechado. Focar na limpeza/preparação das colheitadeiras e silos de armazenagem seca.";
             } else if (dadosLavoura.cultura.includes('Grama')) {
-                if (idadeEmDias <= 25) avisoAdubo = "Foco absoluto em garantir Fósforo (P) abundante na base do tapete. Isso vai forçar as raízes a agarrarem o terreno cru de forma agressiva.";
-                else avisoAdubo = "Grama já está firme no chão! Para que ela atinja aquele 'verde intenso de campo de golfe', distribua <strong>Ureia Nitrogenada a lanço todo mês</strong>, sempre imediatamente ANTES de uma rega copiosa para evitar a queima imediata das folhas novas.";
+                if (idadeEmDias <= 25) avisoAdubo = "Foco absoluto em garantir Fósforo (P) na base do tapete. Isso vai garantir que as raízes agarrem rápido o terreno cru.";
+                else avisoAdubo = "Grama firme no chão! Para que ela atinja aquele 'verde intenso de campo de futebol', jogue <strong>Ureia a lanço 1 vez por mês</strong> sempre imediatamente ANTES de uma rega copiosa (para evitar a queima das folhas).";
             } else {
-                if(tipoCultura === 'hortalica') { avisoAdubo = "Hortaliças de folha e fruto consomem muito, muito rápido. Recomenda-se <strong>Fertirrigação semanal constante</strong>; balanceando muito Nitrogênio para o volume de folhas largas e Cálcio pesado para a estrutura não quebrar."; } 
+                if(tipoCultura === 'hortalica') { avisoAdubo = "Hortaliças consomem muito e rápido. Recomenda-se <strong>Fertirrigação semanal constante</strong> balanceando Nitrogênio para as folhas largas e Cálcio para estrutura firme."; } 
                 else {
-                    if(etapa.includes("Inicial")) { avisoAdubo = "A pequena planta ainda usa a própria reserva natural (endosperma da semente). O Fósforo basal que você colocou no sulco de plantio dá conta. Nenhuma ação extra ou foliar necessária hoje."; } 
-                    else if (etapa.includes("Crescimento")) { avisoAdubo = "Janela de oportunidade excelente! Entre agora com a <strong>1ª Cobertura Pesada de Ureia (N)</strong> antes que a lavoura feche totalmente as entrelinhas e impeça a passagem de tratores."; } 
-                    else if (etapa.includes("Reprodutiva")) { avisoAdubo = "Esta é a fase nobre que define o seu lucro real! Exigência gigante de <strong>Potássio (KCl), seja via pulverização foliar ou via solo</strong>, para garantir o enchimento pesado e o calibre grosso dos grãos/frutos antes da colheita."; }
+                    if(etapa.includes("Inicial")) { avisoAdubo = "A planta ainda usa a reserva natural do endosperma da semente. O Fósforo basal colocado no sulco de plantio é suficiente. Nenhuma ação extra necessária hoje."; } 
+                    else if (etapa.includes("Crescimento")) { avisoAdubo = "Ponto excelente para aplicar a <strong>1ª Cobertura Pesada de Ureia (N)</strong> antes do total fechamento das entrelinhas da lavoura."; } 
+                    else if (etapa.includes("Reprodutiva")) { avisoAdubo = "Fase nobre do lucro! Exige <strong>Potássio (KCl) alto (seja via foliar ou solo)</strong> para garantir o peso pesado final dos grãos/frutos antes da colheita."; }
                 }
             }
 
@@ -1027,11 +929,10 @@
             return { fasePlanta: etapa, diaDoCiclo: idadeEmDias, txtAgua: avisoRega, txtAdubo: avisoAdubo, litrosApurados: litragem };
         }
 
-        // FINANCEIRO DRE
         function carregarSelectFinanceiroDRE() {
             const sl = document.getElementById('finSelectLavoura');
             let db = JSON.parse(localStorage.getItem('sysLavouras')) || [];
-            sl.innerHTML = '<option value="">Escolha o Talhão da Lavoura Aberta...</option>';
+            sl.innerHTML = '<option value="">Escolha o Talhão da Lavoura...</option>';
             db.forEach(l => sl.innerHTML += `<option value="${l.id}">${l.cultura} (${l.area} Ha)</option>`);
         }
 
@@ -1055,9 +956,9 @@
             document.getElementById('finPreco').value = l.precoVenda || '';
             document.getElementById('finVolumeReal').value = l.volumeReal || l.kgColheita;
             
-            // Labels Explicitas de Unidade de Medida
-            document.getElementById('lblDreVolume').innerHTML = `3. Volume ou Área Real Produtiva <br><span class="bg-emerald-200 text-emerald-900 px-3 py-1 rounded-lg mt-2 inline-block text-xs font-black shadow-sm uppercase">CÁLCULO EM: ${l.unidade}</span>`;
-            document.getElementById('lblDrePreco').innerHTML = `4. Preço Médio Estimado de Venda <br><span class="bg-emerald-200 text-emerald-900 px-3 py-1 rounded-lg mt-2 inline-block text-xs font-black shadow-sm uppercase">VALOR R$ POR: 1 ${l.unidade}</span>`;
+            // Labels Explicitamente Gigantescas sobre a Unidade de Venda
+            document.getElementById('lblDreVolume').innerHTML = `3. Volume/Área Real Colhida <span class="bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded ml-1 text-xs font-black shadow-sm uppercase">(Unid: ${l.unidade})</span>`;
+            document.getElementById('lblDrePreco').innerHTML = `4. Preço Médio de Venda <span class="bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded ml-1 text-xs font-black shadow-sm uppercase">(Valor R$ por ${l.unidade})</span>`;
             
             calcularBalancoFinanceiro();
         }
@@ -1088,7 +989,7 @@
 
         function arquivarFechamentoDRE() {
             const id = parseInt(document.getElementById('finSelectLavoura').value);
-            if(!id) return alert("Por favor, você deve selecionar primeiro uma lavoura aberta na Etapa 1 para poder arquivar o balanço financeiro.");
+            if(!id) return alert("Por favor, selecione uma lavoura na Etapa 1 antes de tentar arquivar o balanço financeiro.");
             
             let db = JSON.parse(localStorage.getItem('sysLavouras'));
             let i = db.findIndex(b => b.id === id);
@@ -1117,11 +1018,23 @@
             let h = JSON.parse(localStorage.getItem('sysHistoricoDRE')) || [];
             cx.innerHTML = '';
             
-            if(h.length === 0) { cx.innerHTML = "<p class='text-sm text-stone-400 font-bold p-5 bg-stone-50 rounded-2xl border border-stone-100 shadow-sm'>O seu histórico completo de safras e fechamentos anuais aparecerá consolidado aqui assim que você finalizar o primeiro DRE.</p>"; return; }
+            if(h.length === 0) { cx.innerHTML = "<p class='text-xs text-stone-400 font-bold p-5 bg-stone-50 rounded-2xl border border-stone-100 shadow-sm'>Seu histórico de safras e fechamentos anuais aparecerá consolidado aqui.</p>"; return; }
 
             h.forEach(d => {
                 const cCor = d.lucro < 0 ? 'text-red-500' : 'text-emerald-600';
                 cx.innerHTML += `
-                    <div class="bg-white border-2 border-stone-100 p-5 rounded-2xl flex justify-between items-center transition-colors shadow-sm hover:border-emerald-200 hover:shadow-md cursor-default">
+                    <div class="bg-white border border-stone-100 p-4 rounded-xl flex justify-between items-center transition-colors shadow-sm hover:border-emerald-200">
                         <div>
-                            <p class="font-black text-lg text-stone-700">${d.cultura} <span class="text-[10px] text-stone-500 uppercase tracking-widest ml-2 bg-stone-100 border border-
+                            <p class="font-black text-base text-stone-700">${d.cultura} <span class="text-[10px] text-stone-400 uppercase tracking-widest ml-2 bg-stone-50 border px-1.5 py-0.5 rounded-md">${d.area} Ha</span></p>
+                            <p class="text-[10px] uppercase font-bold text-stone-400 mt-1.5">${d.data}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-black ${cCor} text-lg leading-none">${d.lucro.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
